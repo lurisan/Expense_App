@@ -1,0 +1,10 @@
+{
+  "name": "expense-app-build",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "child_process": "^1.0.2",
+    "path": "^0.12.7"
+  },
+  "author": "Nasirul"
+}
