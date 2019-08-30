@@ -455,12 +455,14 @@ var LoginComponent = /** @class */ (function () {
     };
     LoginComponent.prototype.errorLogin = function (data) {
         this.wrong = "wrong";
-        if (this.authenticationService.validateUsername(data.username)) {
+        if (data.username === "")
+            this.message = "Enter Username";
+        else if (data.password === "")
+            this.message = "Enter Password";
+        else if (this.authenticationService.validateUsername(data.username))
             this.message = "Wrong Username";
-        }
-        else if (this.authenticationService.validatePassword(data.username)) {
+        else if (this.authenticationService.validatePassword(data.username))
             this.message = "Wrong Password";
-        }
     };
     LoginComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({

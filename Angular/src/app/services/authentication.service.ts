@@ -1,25 +1,23 @@
 import { Injectable } from "@angular/core";
-import { SignIn } from "../models/signin";
+import { HttpClient } from "@angular/common/http";
+import { Observable } from "rxjs";
+import { map } from "rxjs/operators";
 
 @Injectable({
   providedIn: "root"
 })
 export class AuthenticationService {
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
-  authenticate(data: SignIn): boolean {
-    if (data.username === "testAdmin2" && data.password === "testPassword2")
-      return true;
-    else return false;
+  authenticate(): Observable<any> {
+    return this.http.get("assets/data/user.json").pipe(
+      map(data => {
+        return data;
+      })
+    );
   }
 
-  validateUsername(username: string): boolean {
-    if (username === "testAdmin2") return false;
-    else return true;
-  }
-
-  validatePassword(password: string): boolean {
-    if (password === "testPassword2") return false;
-    else return true;
+  validateUsername(): Observable<any> {
+    return this.http.get("assets/data/user.json");
   }
 }

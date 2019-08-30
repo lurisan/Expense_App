@@ -23,22 +23,26 @@ export class LoginComponent implements OnInit {
   }
 
   submit() {
-    this.wrong = undefined;
-    let status = this.authenticationService.authenticate(this.signin);
-    if (status) this.router.navigateByUrl("/home");
-    else this.errorLogin(this.signin);
+    this.wrong = "wrong";
+    if (this.signin.username === "") this.message = "Enter Username";
+    else if (this.signin.password === "") this.message = "Enter Password";
+    else
+      this.authenticationService.authenticate().subscribe(data => {
+        data.forEach(element => {
+          if (element.username === this.signin.username)
+            if (element.password === this.signin.password) {
+              this.router.navigateByUrl("/home");
+            } else {
+              this.message = "Wrong Password";
+            }
+          else {
+            this.message = "Unnknown Username";
+          }
+        });
+      });
   }
 
   signup() {
     this.router.navigateByUrl("/signup");
-  }
-
-  errorLogin(data: SignIn) {
-    this.wrong = "wrong";
-    if (this.authenticationService.validateUsername(data.username)) {
-      this.message = "Wrong Username";
-    } else if (this.authenticationService.validatePassword(data.username)) {
-      this.message = "Wrong Password";
-    }
   }
 }
