@@ -5,6 +5,8 @@ import { HomeComponent } from './home/home.component';
 import { AddExpenseComponent } from './add-expense/add-expense.component';
 import { EditExpenseComponent } from './edit-expense/edit-expense.component';
 import { LogoutComponent } from './logout/logout.component';
+import { ProfileComponent } from './profile/profile.component';
+import { SignupComponent } from './signup/signup.component';
 
 const routes: Routes = [{
   path: '',
@@ -30,6 +32,14 @@ const routes: Routes = [{
 {
   path: 'logout',
   component: LogoutComponent
+},
+{
+  path: 'profile',
+  component: ProfileComponent
+},
+{
+  path: 'signup',
+  component: SignupComponent
 }];
 
 @NgModule({

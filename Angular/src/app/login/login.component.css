@@ -33,7 +33,11 @@
   width: 45%;
 }
 
-.space{
+.space {
   margin-left: 5%;
   margin-right: 5%;
+}
+
+.wrong {
+  color: red;
 }

@@ -3,11 +3,11 @@
     <h3><img src="assets/logo.png" height="40%" width="40%" alt="Expense App Logo"></h3>
   </div>
   <div class="login-box-body">
-    <p class="login-box-msg">Login in to continue</p>
-    <input type="text" placeholder="Username" class="form-control">
-    <input type="password" placeholder="Password" class="form-control">
-    <input type="submit" value="Sign In" class="btn btn-success">
+    <p class="login-box-msg {{wrong}}">{{message}}</p>
+    <input type="text" placeholder="Username" class="form-control" [(ngModel)]="signin.username">
+    <input type="password" placeholder="Password" class="form-control" [(ngModel)]="signin.password">
+    <input type="submit" value="Sign In" class="btn btn-success" (click)="submit()">
     <span class="space"></span>
-    <input type="submit" value="Sign Up" class="btn btn-success">
+    <input type="submit" value="Sign Up" class="btn btn-success" (click)="signup()">
   </div>
 </div>
