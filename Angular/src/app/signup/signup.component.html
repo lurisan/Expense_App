@@ -1,3 +1,96 @@
-<p>
-  signup works!
-</p>
+<div class="login-box" [@simpleFadeAnimation]="'in'">
+  <form [formGroup]="signUpForm" (ngSubmit)="continue()">
+    <div class="container login-box-body">
+      <div class="row">
+        <div class="col-lg-4">
+          <label>
+            First Name<span style="color: red"> *</span>
+          </label>
+        </div>
+        <div class="col-lg-8">
+          <input type="text" class="form-control" formControlName="firstName">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-4">
+          <label>
+            Middle Name
+          </label>
+        </div>
+        <div class="col-lg-8">
+          <input type="text" class="form-control" formControlName="middleName">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-4">
+          <label>
+            Last Name<span style="color: red"> *</span>
+          </label>
+        </div>
+        <div class="col-lg-8">
+          <input type="text" class="form-control" formControlName="lastName">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-4">
+          <label>
+            Username<span style="color: red"> *</span>
+          </label>
+        </div>
+        <div class="col-lg-8">
+          <input type="text" class="form-control" formControlName="username">
+        </div>
+      </div>
+      <ng-container formGroupName="passwords">
+        <div class="row">
+          <div class="col-lg-4">
+            <label>
+              Password<span style="color: red"> *</span>
+            </label>
+          </div>
+          <div class="col-lg-8">
+            <input type="password" class="form-control" formControlName="password">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-4">
+            <label>
+              Confirm Password<span style="color: red"> *</span>
+            </label>
+          </div>
+          <div class="col-lg-8">
+            <input type="password" class="form-control" formControlName="confirmPassword">
+          </div>
+        </div>
+      </ng-container>
+      <div class="row">
+        <div class="col-lg-4">
+          <label>
+            Email<span style="color: red"> *</span>
+          </label>
+        </div>
+        <div class="col-lg-8">
+          <input type="text" class="form-control" formControlName="emailId">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-4">
+          <label>
+            Mobile Number<span style="color: red"> *</span>
+          </label>
+        </div>
+        <div class="col-lg-8">
+          <input type="text" class="form-control" formControlName="mobileNumber">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-6">
+          <button type="submit" class="btn btn-success" [disabled]="!signUpForm.valid">Continue</button>
+        </div>
+        <div class="col-lg-6">
+          <button type="reset" class="btn btn-success" (click)="cancel()">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

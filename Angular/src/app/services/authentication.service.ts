@@ -1,23 +1,19 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { map } from "rxjs/operators";
+import { AngularFirestoreCollection, AngularFirestore } from '@angular/fire/firestore';
+import { Signin } from '../models/signin';
 
 @Injectable({
   providedIn: "root"
 })
 export class AuthenticationService {
-  constructor(private http: HttpClient) {}
-
-  authenticate(): Observable<any> {
-    return this.http.get("assets/data/user.json").pipe(
-      map(data => {
-        return data;
-      })
-    );
+  private signinRef: AngularFirestoreCollection<Signin>;
+  constructor(private http: HttpClient, private firestore: AngularFirestore) {
+    this.signinRef = this.firestore.collection<Signin>("signup");
   }
 
-  validateUsername(): Observable<any> {
-    return this.http.get("assets/data/user.json");
+  authenticate(): Observable<any> {
+    return this.signinRef.get();
   }
 }

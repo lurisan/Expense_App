@@ -1,15 +1,29 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { AuthenticationService } from "../services/authentication.service";
-import { SignIn } from "../models/signin";
+import { Signin } from "../models/signin";
+import {
+  trigger,
+  state,
+  style,
+  transition,
+  animate
+} from "@angular/animations";
 
 @Component({
   selector: "app-login",
   templateUrl: "./login.component.html",
-  styleUrls: ["./login.component.css"]
+  styleUrls: ["./login.component.css"],
+  animations: [
+    trigger("simpleFadeAnimation", [
+      state("in", style({ opacity: 1 })),
+      transition(":enter", [style({ opacity: 0 }), animate(1500)]),
+      transition(":leave", animate(1000, style({ opacity: 0 })))
+    ])
+  ]
 })
 export class LoginComponent implements OnInit {
-  private signin: SignIn;
+  private signin: Signin;
   private message: string = "Expense App Login";
   private wrong: string = undefined;
 
@@ -19,24 +33,27 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.signin = new SignIn();
+    this.signin = new Signin();
   }
 
   submit() {
-    this.wrong = "wrong";
+    this.wrong = undefined;
     if (this.signin.username === "") this.message = "Enter Username";
     else if (this.signin.password === "") this.message = "Enter Password";
     else
-      this.authenticationService.authenticate().subscribe(data => {
-        data.forEach(element => {
-          if (element.username === this.signin.username)
-            if (element.password === this.signin.password) {
+      this.authenticationService.authenticate().subscribe(querySnapshot => {
+        querySnapshot.docs.forEach(element => {
+          let data = element.data();
+          if (data.username === this.signin.username)
+            if (data.password === this.signin.password) {
               this.router.navigateByUrl("/home");
             } else {
+              this.wrong = "wrong";
               this.message = "Wrong Password";
             }
           else {
-            this.message = "Unnknown Username";
+            this.wrong = "wrong";
+            this.message = "Unknown Username";
           }
         });
       });

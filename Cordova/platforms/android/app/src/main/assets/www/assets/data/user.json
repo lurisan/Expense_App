@@ -1,0 +1,11 @@
+[
+  {
+    "username": "testAdmin1",
+    "password": "testPassword1",
+    "firstName": "Admin",
+    "middleName": "Admin",
+    "lastName": "Admin",
+    "emailId": "admin@admin.com",
+    "mobileNumber": "1234567890"
+  }
+]
