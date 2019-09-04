@@ -123,7 +123,7 @@ var routes = [{
     {
         path: 'expense-app',
         component: _layout_layout_layout_component__WEBPACK_IMPORTED_MODULE_10__["LayoutComponent"],
-        // canActivateChild: [AuthGuard],
+        // canActivate: [AuthGuard],
         children: [{
                 path: '',
                 pathMatch: 'full',
@@ -148,16 +148,9 @@ var routes = [{
             {
                 path: '**',
                 pathMatch: 'full',
-                // resolve: PathResolveService,
                 redirectTo: 'home'
             }]
     },
-    // {
-    //   path: 'expense-app/**',
-    //   pathMatch: 'full',
-    //   resolve: PathResolveService,
-    //   redirectTo: 'expense-app/home'
-    // },
     {
         path: 'logout',
         component: _logout_logout_component__WEBPACK_IMPORTED_MODULE_7__["LogoutComponent"]
@@ -269,6 +262,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @angular/fire/firestore */ "./node_modules/@angular/fire/firestore/index.js");
 /* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! src/environments/environment */ "./src/environments/environment.ts");
 /* harmony import */ var _layout_layout_layout_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./layout/layout/layout.component */ "./src/app/layout/layout/layout.component.ts");
+/* harmony import */ var _header_header_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./header/header.component */ "./src/app/header/header.component.ts");
+
 
 
 
@@ -302,7 +297,8 @@ var AppModule = /** @class */ (function () {
                 _logout_logout_component__WEBPACK_IMPORTED_MODULE_11__["LogoutComponent"],
                 _signup_signup_component__WEBPACK_IMPORTED_MODULE_12__["SignupComponent"],
                 _profile_profile_component__WEBPACK_IMPORTED_MODULE_13__["ProfileComponent"],
-                _layout_layout_layout_component__WEBPACK_IMPORTED_MODULE_18__["LayoutComponent"]
+                _layout_layout_layout_component__WEBPACK_IMPORTED_MODULE_18__["LayoutComponent"],
+                _header_header_component__WEBPACK_IMPORTED_MODULE_19__["HeaderComponent"]
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
@@ -375,6 +371,81 @@ var EditExpenseComponent = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
     ], EditExpenseComponent);
     return EditExpenseComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/header/header.component.css":
+/*!*********************************************!*\
+  !*** ./src/app/header/header.component.css ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".sidenav {\r\n  height: 100%;\r\n  width: 0;\r\n  position: fixed;\r\n  z-index: 1;\r\n  top: 0;\r\n  left: 0;\r\n  background-color: #111;\r\n  color: #818181;\r\n  overflow-x: hidden;\r\n  transition: 0.2s;\r\n  padding-top: 10px;\r\n}\r\n\r\n.sideMenuItems{\r\n  margin-left:10%;\r\n}\r\n\r\n.sideMenuItems:hover{\r\n  color: #f1f1f1;\r\n  cursor: pointer;\r\n}\r\n\r\n.sidenav a {\r\n  padding-right: 10px;\r\n  padding-top: 4px; \r\n  text-decoration: none;\r\n  font-size: 25px;\r\n  color: #818181;\r\n  display: block;\r\n  transition: 0.2s;\r\n}\r\n\r\n.sidenav a:hover {\r\n  color: #f1f1f1;\r\n}\r\n\r\n.sidenav .closebtn {\r\n  position: absolute;\r\n  top: 0;\r\n  right: 5px;\r\n}\r\n\r\n#main {\r\n  transition: margin-left .5s;\r\n}\r\n\r\n.top {\r\n  margin-top: 2%;\r\n}\r\n\r\n.top2 {\r\n  margin-top: 2.5%;\r\n}\r\n\r\n@media screen and (max-height: 450px) {\r\n  .sidenav {\r\n    padding-top: 15px;\r\n  }\r\n\r\n  .sidenav a {\r\n    font-size: 18px;\r\n  }\r\n}\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvaGVhZGVyL2hlYWRlci5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsWUFBWTtFQUNaLFFBQVE7RUFDUixlQUFlO0VBQ2YsVUFBVTtFQUNWLE1BQU07RUFDTixPQUFPO0VBQ1Asc0JBQXNCO0VBQ3RCLGNBQWM7RUFDZCxrQkFBa0I7RUFDbEIsZ0JBQWdCO0VBQ2hCLGlCQUFpQjtBQUNuQjs7QUFFQTtFQUNFLGVBQWU7QUFDakI7O0FBRUE7RUFDRSxjQUFjO0VBQ2QsZUFBZTtBQUNqQjs7QUFFQTtFQUNFLG1CQUFtQjtFQUNuQixnQkFBZ0I7RUFDaEIscUJBQXFCO0VBQ3JCLGVBQWU7RUFDZixjQUFjO0VBQ2QsY0FBYztFQUNkLGdCQUFnQjtBQUNsQjs7QUFFQTtFQUNFLGNBQWM7QUFDaEI7O0FBRUE7RUFDRSxrQkFBa0I7RUFDbEIsTUFBTTtFQUNOLFVBQVU7QUFDWjs7QUFFQTtFQUNFLDJCQUEyQjtBQUM3Qjs7QUFFQTtFQUNFLGNBQWM7QUFDaEI7O0FBRUE7RUFDRSxnQkFBZ0I7QUFDbEI7O0FBRUE7RUFDRTtJQUNFLGlCQUFpQjtFQUNuQjs7RUFFQTtJQUNFLGVBQWU7RUFDakI7QUFDRiIsImZpbGUiOiJzcmMvYXBwL2hlYWRlci9oZWFkZXIuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5zaWRlbmF2IHtcclxuICBoZWlnaHQ6IDEwMCU7XHJcbiAgd2lkdGg6IDA7XHJcbiAgcG9zaXRpb246IGZpeGVkO1xyXG4gIHotaW5kZXg6IDE7XHJcbiAgdG9wOiAwO1xyXG4gIGxlZnQ6IDA7XHJcbiAgYmFja2dyb3VuZC1jb2xvcjogIzExMTtcclxuICBjb2xvcjogIzgxODE4MTtcclxuICBvdmVyZmxvdy14OiBoaWRkZW47XHJcbiAgdHJhbnNpdGlvbjogMC4ycztcclxuICBwYWRkaW5nLXRvcDogMTBweDtcclxufVxyXG5cclxuLnNpZGVNZW51SXRlbXN7XHJcbiAgbWFyZ2luLWxlZnQ6MTAlO1xyXG59XHJcblxyXG4uc2lkZU1lbnVJdGVtczpob3ZlcntcclxuICBjb2xvcjogI2YxZjFmMTtcclxuICBjdXJzb3I6IHBvaW50ZXI7XHJcbn1cclxuXHJcbi5zaWRlbmF2IGEge1xyXG4gIHBhZGRpbmctcmlnaHQ6IDEwcHg7XHJcbiAgcGFkZGluZy10b3A6IDRweDsgXHJcbiAgdGV4dC1kZWNvcmF0aW9uOiBub25lO1xyXG4gIGZvbnQtc2l6ZTogMjVweDtcclxuICBjb2xvcjogIzgxODE4MTtcclxuICBkaXNwbGF5OiBibG9jaztcclxuICB0cmFuc2l0aW9uOiAwLjJzO1xyXG59XHJcblxyXG4uc2lkZW5hdiBhOmhvdmVyIHtcclxuICBjb2xvcjogI2YxZjFmMTtcclxufVxyXG5cclxuLnNpZGVuYXYgLmNsb3NlYnRuIHtcclxuICBwb3NpdGlvbjogYWJzb2x1dGU7XHJcbiAgdG9wOiAwO1xyXG4gIHJpZ2h0OiA1cHg7XHJcbn1cclxuXHJcbiNtYWluIHtcclxuICB0cmFuc2l0aW9uOiBtYXJnaW4tbGVmdCAuNXM7XHJcbn1cclxuXHJcbi50b3Age1xyXG4gIG1hcmdpbi10b3A6IDIlO1xyXG59XHJcblxyXG4udG9wMiB7XHJcbiAgbWFyZ2luLXRvcDogMi41JTtcclxufVxyXG5cclxuQG1lZGlhIHNjcmVlbiBhbmQgKG1heC1oZWlnaHQ6IDQ1MHB4KSB7XHJcbiAgLnNpZGVuYXYge1xyXG4gICAgcGFkZGluZy10b3A6IDE1cHg7XHJcbiAgfVxyXG5cclxuICAuc2lkZW5hdiBhIHtcclxuICAgIGZvbnQtc2l6ZTogMThweDtcclxuICB9XHJcbn1cclxuIl19 */"
+
+/***/ }),
+
+/***/ "./src/app/header/header.component.html":
+/*!**********************************************!*\
+  !*** ./src/app/header/header.component.html ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"container-fluid\">\n  <div class=\"row\">\n    <div class=\"col-1 top\">\n      <div id=\"mySidenav\" class=\"sidenav\" [ngStyle]=\"{'width.%':width}\">\n        <a href=\"javascript:void(0)\" class=\"closebtn\" (click)=\"closeNav()\">\n          &times;\n        </a>\n        <div class=\"sideMenuItems\">\n          <img src=\"assets/logo.png\" alt=\"icon\" height=\"30px\" width=\"30px\">&nbsp;&nbsp;&nbsp;Expense App\n        </div>\n        <div>&nbsp;</div>\n        <div class=\"sideMenuItems\" (click)=\"menuClick('home')\">\n          Home\n        </div>\n        <div>&nbsp;</div>\n        <div class=\"sideMenuItems\" (click)=\"menuClick('add')\">\n          Add Expense\n        </div>\n        <div>&nbsp;</div>\n        <div class=\"sideMenuItems\" (click)=\"menuClick('edit')\">\n          Edit Expense\n        </div>\n        <div>&nbsp;</div>\n        <div class=\"sideMenuItems\" (click)=\"menuClick('delete')\">\n          Delete Expense\n        </div>\n        <div>&nbsp;</div>\n        <div class=\"sideMenuItems\" (click)=\"menuClick('logout')\">\n          Logout\n        </div>\n      </div>\n      <div id=\"main\">\n        <span style=\"font-size:20px;cursor:pointer\" (click)=\"openNav()\" class=\"{{preDefinedClassName}}\">\n          &#9776;\n        </span>\n      </div>\n    </div>\n    <div class=\"col-11 top2\">\n      Expense App\n    </div>\n  </div>\n</div>"
+
+/***/ }),
+
+/***/ "./src/app/header/header.component.ts":
+/*!********************************************!*\
+  !*** ./src/app/header/header.component.ts ***!
+  \********************************************/
+/*! exports provided: HeaderComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HeaderComponent", function() { return HeaderComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _services_user_data_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../services/user-data.service */ "./src/app/services/user-data.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+
+
+
+
+var HeaderComponent = /** @class */ (function () {
+    function HeaderComponent(userDataService, router) {
+        this.userDataService = userDataService;
+        this.router = router;
+    }
+    HeaderComponent.prototype.ngOnInit = function () {
+        this.user = this.userDataService.getUserData();
+        console.log(this.user);
+    };
+    HeaderComponent.prototype.openNav = function () {
+        document.getElementById("mySidenav").style.width = "250px";
+        document.getElementById("main").style.opacity = "1";
+    };
+    HeaderComponent.prototype.closeNav = function () {
+        document.getElementById("mySidenav").style.width = "0px";
+    };
+    HeaderComponent.prototype.menuClick = function (item) {
+        this.closeNav();
+        console.log(item);
+    };
+    HeaderComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-header',
+            template: __webpack_require__(/*! ./header.component.html */ "./src/app/header/header.component.html"),
+            styles: [__webpack_require__(/*! ./header.component.css */ "./src/app/header/header.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_user_data_service__WEBPACK_IMPORTED_MODULE_2__["UserDataService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
+    ], HeaderComponent);
+    return HeaderComponent;
 }());
 
 
@@ -458,7 +529,7 @@ var HomeComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2xheW91dC9sYXlvdXQvbGF5b3V0LmNvbXBvbmVudC5jc3MifQ== */"
+module.exports = ".body {\r\n  margin-top: 2%;\r\n  margin-left: 2%;\r\n}\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvbGF5b3V0L2xheW91dC9sYXlvdXQuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLGNBQWM7RUFDZCxlQUFlO0FBQ2pCIiwiZmlsZSI6InNyYy9hcHAvbGF5b3V0L2xheW91dC9sYXlvdXQuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5ib2R5IHtcclxuICBtYXJnaW4tdG9wOiAyJTtcclxuICBtYXJnaW4tbGVmdDogMiU7XHJcbn1cclxuIl19 */"
 
 /***/ }),
 
@@ -469,7 +540,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n  <div class=\"row\">\n    <div class=\"col-lg-12\">\n\n    </div>\n  </div>\n  <div class=\"row\">\n    <div class=\"col-lg-12\">\n      <router-outlet></router-outlet>\n    </div>\n  </div>\n  <div class=\"row\">\n    <div class=\"col-lg-12\">\n\n    </div>\n  </div>\n</div>"
+module.exports = "<div class=\"header\">\n  <app-header></app-header>\n</div>\n<div class=\"body\">\n  <router-outlet></router-outlet>\n</div>"
 
 /***/ }),
 
