@@ -22,7 +22,7 @@ const routes: Routes = [{
 {
   path: 'expense-app',
   component: LayoutComponent,
-  // canActivate: [AuthGuard],
+  canActivate: [AuthGuard],
   children: [{
     path: '',
     pathMatch: 'full',
