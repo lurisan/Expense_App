@@ -15,6 +15,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { AngularFireModule } from "@angular/fire";
 import { AngularFirestoreModule } from "@angular/fire/firestore";
 import { environment } from 'src/environments/environment';
+import { LayoutComponent } from './layout/layout/layout.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { environment } from 'src/environments/environment';
     EditExpenseComponent,
     LogoutComponent,
     SignupComponent,
-    ProfileComponent
+    ProfileComponent,
+    LayoutComponent
   ],
   imports: [
     BrowserModule,

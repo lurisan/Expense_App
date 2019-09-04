@@ -1,19 +1,10 @@
 import { Component, OnInit } from "@angular/core";
-import {
-  trigger,
-  state,
-  style,
-  transition,
-  animate
-} from "@angular/animations";
+import { trigger, state, style, transition, animate } from "@angular/animations";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { Signup } from "../models/signup";
+import { User } from "../models/user";
 import { UserService } from "../services/user.service";
-import {
-  AngularFirestore,
-  AngularFirestoreCollection
-} from "@angular/fire/firestore";
 import { Router } from "@angular/router";
+import { SignupService } from '../services/signup.service';
 
 @Component({
   selector: "app-signup",
@@ -29,7 +20,7 @@ import { Router } from "@angular/router";
 })
 
 export class SignupComponent implements OnInit {
-  private signup: Signup;
+  private signUpData: User;
   private signUpForm = new FormGroup({
     username: new FormControl("", [Validators.required]),
     passwords: new FormGroup(
@@ -56,15 +47,8 @@ export class SignupComponent implements OnInit {
     ])
   });
 
-  signupRef: AngularFirestoreCollection<Signup>;
-
-  constructor(
-    private userService: UserService,
-    private firestore: AngularFirestore,
-    private router: Router
-  ) {
-    this.signupRef = this.firestore.collection<Signup>("signup");
-    this.signup = {
+  constructor(private router: Router, private signUpService: SignupService) {
+    this.signUpData = {
       firstName: "",
       middleName: "",
       lastName: "",
@@ -75,38 +59,31 @@ export class SignupComponent implements OnInit {
     };
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
-  passwordConfirming(c: FormGroup) {
-    if (
-      c.get("password").value === c.get("confirmPassword").value &&
-      (c.get("password").value !== "" && c.get("confirmPassword").value !== "")
-    ) {
+  passwordConfirming(passwords: FormGroup) {
+    if (passwords.get("password").value === passwords.get("confirmPassword").value && (passwords.get("password").value !== "" && passwords.get("confirmPassword").value !== ""))
       return null;
-    }
     return { mismatch: true };
   }
 
   continue() {
-    this.signup.emailId = this.signUpForm.value.emailId;
-    this.signup.firstName = this.signUpForm.value.firstName;
-    this.signup.middleName = this.signUpForm.value.middleName;
-    this.signup.lastName = this.signUpForm.value.lastName;
-    this.signup.username = this.signUpForm.value.username;
-    this.signup.password = this.signUpForm.value.passwords.password;
-    this.signup.mobileNumber = this.signUpForm.value.mobileNumber;
-    this.signupRef
-      .add(this.signup)
-      .then(data => {
-        console.log(data);
-        if (data.id) this.router.navigateByUrl("/login");
-      })
+    this.signUpData.emailId = this.signUpForm.value.emailId;
+    this.signUpData.firstName = this.signUpForm.value.firstName;
+    this.signUpData.middleName = this.signUpForm.value.middleName;
+    this.signUpData.lastName = this.signUpForm.value.lastName;
+    this.signUpData.username = this.signUpForm.value.username;
+    this.signUpData.password = this.signUpForm.value.passwords.password;
+    this.signUpData.mobileNumber = this.signUpForm.value.mobileNumber;
+    this.signUpService.signup(this.signUpData).then(data => {
+      if (data.id) this.router.navigateByUrl("/login");
+    })
       .catch(err => {
         console.log(err);
       });
   }
 
   cancel() {
-    this.userService.userRead();
+    this.router.navigateByUrl('/login')
   }
 }

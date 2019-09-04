@@ -1,3 +1,14 @@
-<p>
-  profile works!
-</p>
+<div class="login-box" [@simpleFadeAnimation]="'in'">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                {{userData.firstName + ' ' + userData.middleName + ' ' + userData.lastName}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <button (click)="logout()" class="btn btn-warning">Logout</button>
+            </div>
+        </div>
+    </div>
+</div>

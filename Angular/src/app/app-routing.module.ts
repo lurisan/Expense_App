@@ -7,6 +7,9 @@ import { EditExpenseComponent } from './edit-expense/edit-expense.component';
 import { LogoutComponent } from './logout/logout.component';
 import { ProfileComponent } from './profile/profile.component';
 import { SignupComponent } from './signup/signup.component';
+import { AuthGuard } from './auth/auth.service';
+import { LayoutComponent } from './layout/layout/layout.component';
+import { PathResolveService } from './auth/path-resolve.service';
 
 const routes: Routes = [{
   path: '',
@@ -18,28 +21,55 @@ const routes: Routes = [{
   component: LoginComponent
 },
 {
-  path: 'home',
-  component: HomeComponent
+  path: 'expense-app',
+  component: LayoutComponent,
+  // canActivateChild: [AuthGuard],
+  children: [{
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'home'
+  },
+  {
+    path: 'home',
+    component: HomeComponent
+  },
+  {
+    path: 'addExpense',
+    component: AddExpenseComponent
+  },
+  {
+    path: 'editExpense',
+    component: EditExpenseComponent
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent
+  },
+  {
+    path: '**',
+    pathMatch: 'full',
+    // resolve: PathResolveService,
+    redirectTo: 'home'
+  }]
 },
-{
-  path: 'addExpense',
-  component: AddExpenseComponent
-},
-{
-  path: 'editExpense',
-  component: EditExpenseComponent
-},
+// {
+//   path: 'expense-app/**',
+//   pathMatch: 'full',
+//   resolve: PathResolveService,
+//   redirectTo: 'expense-app/home'
+// },
 {
   path: 'logout',
   component: LogoutComponent
 },
 {
-  path: 'profile',
-  component: ProfileComponent
-},
-{
   path: 'signup',
   component: SignupComponent
+},
+{
+  path: '**',
+  pathMatch: 'full',
+  redirectTo: 'login'
 }];
 
 @NgModule({

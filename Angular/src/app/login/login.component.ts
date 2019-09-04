@@ -2,13 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { AuthenticationService } from "../services/authentication.service";
 import { Signin } from "../models/signin";
-import {
-  trigger,
-  state,
-  style,
-  transition,
-  animate
-} from "@angular/animations";
+import { trigger, state, style, transition, animate } from "@angular/animations";
+import { UserDataService } from "../services/user-data.service";
 
 @Component({
   selector: "app-login",
@@ -29,8 +24,9 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private authenticationService: AuthenticationService
-  ) {}
+    private authenticationService: AuthenticationService,
+    private userDataService: UserDataService
+  ) { }
 
   ngOnInit() {
     this.signin = new Signin();
@@ -46,7 +42,8 @@ export class LoginComponent implements OnInit {
           let data = element.data();
           if (data.username === this.signin.username)
             if (data.password === this.signin.password) {
-              this.router.navigateByUrl("/home");
+              this.userDataService.setUserData(data);
+              this.router.navigateByUrl("/expense-app/home");
             } else {
               this.wrong = "wrong";
               this.message = "Wrong Password";
