@@ -9,6 +9,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { SignupComponent } from './signup/signup.component';
 import { AuthGuard } from './auth/auth.service';
 import { LayoutComponent } from './layout/layout/layout.component';
+import { DeleteExpenseComponent } from './delete-expense/delete-expense.component';
 
 const routes: Routes = [{
   path: '',
@@ -45,14 +46,18 @@ const routes: Routes = [{
     component: ProfileComponent
   },
   {
+    path: 'deleteExpense',
+    component: DeleteExpenseComponent
+  },
+  {
+    path: 'logout',
+    component: LogoutComponent
+  },
+  {
     path: '**',
     pathMatch: 'full',
     redirectTo: 'home'
   }]
-},
-{
-  path: 'logout',
-  component: LogoutComponent
 },
 {
   path: 'signup',

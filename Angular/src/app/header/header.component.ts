@@ -15,7 +15,6 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.user = this.userDataService.getUserData()
-    console.log(this.user)
   }
   openNav() {
     document.getElementById("mySidenav").style.width = "250px";
@@ -26,6 +25,6 @@ export class HeaderComponent implements OnInit {
   }
   menuClick(item: string) {
     this.closeNav()
-    console.log(item)
+    this.router.navigateByUrl('/expense-app/' + item)
   }
 }

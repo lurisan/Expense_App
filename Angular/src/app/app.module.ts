@@ -17,6 +17,7 @@ import { AngularFirestoreModule } from "@angular/fire/firestore";
 import { environment } from 'src/environments/environment';
 import { LayoutComponent } from './layout/layout/layout.component';
 import { HeaderComponent } from './header/header.component';
+import { DeleteExpenseComponent } from './delete-expense/delete-expense.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { HeaderComponent } from './header/header.component';
     SignupComponent,
     ProfileComponent,
     LayoutComponent,
-    HeaderComponent
+    HeaderComponent,
+    DeleteExpenseComponent
   ],
   imports: [
     BrowserModule,

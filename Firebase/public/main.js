@@ -101,6 +101,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _signup_signup_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./signup/signup.component */ "./src/app/signup/signup.component.ts");
 /* harmony import */ var _auth_auth_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./auth/auth.service */ "./src/app/auth/auth.service.ts");
 /* harmony import */ var _layout_layout_layout_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./layout/layout/layout.component */ "./src/app/layout/layout/layout.component.ts");
+/* harmony import */ var _delete_expense_delete_expense_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./delete-expense/delete-expense.component */ "./src/app/delete-expense/delete-expense.component.ts");
+
 
 
 
@@ -148,14 +150,18 @@ var routes = [{
                 component: _profile_profile_component__WEBPACK_IMPORTED_MODULE_8__["ProfileComponent"]
             },
             {
+                path: 'deleteExpense',
+                component: _delete_expense_delete_expense_component__WEBPACK_IMPORTED_MODULE_12__["DeleteExpenseComponent"]
+            },
+            {
+                path: 'logout',
+                component: _logout_logout_component__WEBPACK_IMPORTED_MODULE_7__["LogoutComponent"]
+            },
+            {
                 path: '**',
                 pathMatch: 'full',
                 redirectTo: 'home'
             }]
-    },
-    {
-        path: 'logout',
-        component: _logout_logout_component__WEBPACK_IMPORTED_MODULE_7__["LogoutComponent"]
     },
     {
         path: 'signup',
@@ -265,6 +271,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! src/environments/environment */ "./src/environments/environment.ts");
 /* harmony import */ var _layout_layout_layout_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./layout/layout/layout.component */ "./src/app/layout/layout/layout.component.ts");
 /* harmony import */ var _header_header_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./header/header.component */ "./src/app/header/header.component.ts");
+/* harmony import */ var _delete_expense_delete_expense_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./delete-expense/delete-expense.component */ "./src/app/delete-expense/delete-expense.component.ts");
+
 
 
 
@@ -300,7 +308,8 @@ var AppModule = /** @class */ (function () {
                 _signup_signup_component__WEBPACK_IMPORTED_MODULE_12__["SignupComponent"],
                 _profile_profile_component__WEBPACK_IMPORTED_MODULE_13__["ProfileComponent"],
                 _layout_layout_layout_component__WEBPACK_IMPORTED_MODULE_18__["LayoutComponent"],
-                _header_header_component__WEBPACK_IMPORTED_MODULE_19__["HeaderComponent"]
+                _header_header_component__WEBPACK_IMPORTED_MODULE_19__["HeaderComponent"],
+                _delete_expense_delete_expense_component__WEBPACK_IMPORTED_MODULE_20__["DeleteExpenseComponent"]
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
@@ -358,6 +367,62 @@ var AuthGuard = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"], _services_user_data_service__WEBPACK_IMPORTED_MODULE_3__["UserDataService"]])
     ], AuthGuard);
     return AuthGuard;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/delete-expense/delete-expense.component.css":
+/*!*************************************************************!*\
+  !*** ./src/app/delete-expense/delete-expense.component.css ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2RlbGV0ZS1leHBlbnNlL2RlbGV0ZS1leHBlbnNlLmNvbXBvbmVudC5jc3MifQ== */"
+
+/***/ }),
+
+/***/ "./src/app/delete-expense/delete-expense.component.html":
+/*!**************************************************************!*\
+  !*** ./src/app/delete-expense/delete-expense.component.html ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<p>\n  delete-expense works!\n</p>\n"
+
+/***/ }),
+
+/***/ "./src/app/delete-expense/delete-expense.component.ts":
+/*!************************************************************!*\
+  !*** ./src/app/delete-expense/delete-expense.component.ts ***!
+  \************************************************************/
+/*! exports provided: DeleteExpenseComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DeleteExpenseComponent", function() { return DeleteExpenseComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+
+
+var DeleteExpenseComponent = /** @class */ (function () {
+    function DeleteExpenseComponent() {
+    }
+    DeleteExpenseComponent.prototype.ngOnInit = function () {
+    };
+    DeleteExpenseComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-delete-expense',
+            template: __webpack_require__(/*! ./delete-expense.component.html */ "./src/app/delete-expense/delete-expense.component.html"),
+            styles: [__webpack_require__(/*! ./delete-expense.component.css */ "./src/app/delete-expense/delete-expense.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], DeleteExpenseComponent);
+    return DeleteExpenseComponent;
 }());
 
 
@@ -438,7 +503,7 @@ module.exports = ".sidenav {\r\n  height: 100%;\r\n  width: 0;\r\n  position: fi
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-fluid\">\n  <div class=\"row\">\n    <div class=\"col-1 top\">\n      <div id=\"mySidenav\" class=\"sidenav\" [ngStyle]=\"{'width.%':width}\">\n        <a href=\"javascript:void(0)\" class=\"closebtn\" (click)=\"closeNav()\">\n          &times;\n        </a>\n        <div class=\"sideMenuItems\">\n          <img src=\"assets/logo.png\" alt=\"icon\" height=\"30px\" width=\"30px\">&nbsp;&nbsp;&nbsp;Expense App\n        </div>\n        <div>&nbsp;</div>\n        <div class=\"sideMenuItems\" (click)=\"menuClick('home')\">\n          Home\n        </div>\n        <div>&nbsp;</div>\n        <div class=\"sideMenuItems\" (click)=\"menuClick('add')\">\n          Add Expense\n        </div>\n        <div>&nbsp;</div>\n        <div class=\"sideMenuItems\" (click)=\"menuClick('edit')\">\n          Edit Expense\n        </div>\n        <div>&nbsp;</div>\n        <div class=\"sideMenuItems\" (click)=\"menuClick('delete')\">\n          Delete Expense\n        </div>\n        <div>&nbsp;</div>\n        <div class=\"sideMenuItems\" (click)=\"menuClick('logout')\">\n          Logout\n        </div>\n      </div>\n      <div id=\"main\">\n        <span style=\"font-size:20px;cursor:pointer\" (click)=\"openNav()\" class=\"{{preDefinedClassName}}\">\n          &#9776;\n        </span>\n      </div>\n    </div>\n    <div class=\"col-11 top2\">\n      Expense App\n    </div>\n  </div>\n</div>"
+module.exports = "<div class=\"container-fluid\">\n  <div class=\"row\">\n    <div class=\"col-1 top\">\n      <div id=\"mySidenav\" class=\"sidenav\" [ngStyle]=\"{'width.%':width}\">\n        <a href=\"javascript:void(0)\" class=\"closebtn\" (click)=\"closeNav()\">\n          &times;\n        </a>\n        <div class=\"sideMenuItems\">\n          <img src=\"assets/logo.png\" alt=\"icon\" height=\"30px\" width=\"30px\">&nbsp;&nbsp;&nbsp;Expense App\n        </div>\n        <div>&nbsp;</div>\n        <div class=\"sideMenuItems\" (click)=\"menuClick('home')\">\n          Home\n        </div>\n        <div>&nbsp;</div>\n        <div class=\"sideMenuItems\" (click)=\"menuClick('profile')\">\n          Profile\n        </div>\n        <div>&nbsp;</div>\n        <div class=\"sideMenuItems\" (click)=\"menuClick('addExpense')\">\n          Add Expense\n        </div>\n        <div>&nbsp;</div>\n        <div class=\"sideMenuItems\" (click)=\"menuClick('editExpense')\">\n          Edit Expense\n        </div>\n        <div>&nbsp;</div>\n        <div class=\"sideMenuItems\" (click)=\"menuClick('deleteExpense')\">\n          Delete Expense\n        </div>\n        <div>&nbsp;</div>\n        <div class=\"sideMenuItems\" (click)=\"menuClick('logout')\">\n          Logout\n        </div>\n      </div>\n      <div id=\"main\">\n        <span style=\"font-size:20px;cursor:pointer\" (click)=\"openNav()\" class=\"{{preDefinedClassName}}\">\n          &#9776;\n        </span>\n      </div>\n    </div>\n    <div class=\"col-11 top2\">\n      Expense App\n    </div>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -467,7 +532,6 @@ var HeaderComponent = /** @class */ (function () {
     }
     HeaderComponent.prototype.ngOnInit = function () {
         this.user = this.userDataService.getUserData();
-        console.log(this.user);
     };
     HeaderComponent.prototype.openNav = function () {
         document.getElementById("mySidenav").style.width = "250px";
@@ -478,7 +542,7 @@ var HeaderComponent = /** @class */ (function () {
     };
     HeaderComponent.prototype.menuClick = function (item) {
         this.closeNav();
-        console.log(item);
+        this.router.navigateByUrl('/expense-app/' + item);
     };
     HeaderComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -750,7 +814,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  logout works!\n</p>\n"
+module.exports = "<div>\n  Are You Sure You Want To Logout ?\n</div>\n<div style=\"cursor: pointer;\" (click)=\"click('yes')\">\n  Yes\n</div>\n<div style=\"cursor: pointer;\" (click)=\"click('no')\">\n  No\n</div>"
 
 /***/ }),
 
@@ -767,15 +831,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _services_user_data_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../services/user-data.service */ "./src/app/services/user-data.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+
 
 
 
 var LogoutComponent = /** @class */ (function () {
-    function LogoutComponent(UserDataService) {
+    function LogoutComponent(UserDataService, router) {
         this.UserDataService = UserDataService;
+        this.router = router;
     }
     LogoutComponent.prototype.ngOnInit = function () {
         this.UserDataService.setUserData(null);
+    };
+    LogoutComponent.prototype.click = function (option) {
+        if (option === 'yes')
+            this.router.navigateByUrl('/login');
+        else
+            this.router.navigateByUrl('/expense-app');
     };
     LogoutComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -783,7 +856,7 @@ var LogoutComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./logout.component.html */ "./src/app/logout/logout.component.html"),
             styles: [__webpack_require__(/*! ./logout.component.css */ "./src/app/logout/logout.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_user_data_service__WEBPACK_IMPORTED_MODULE_2__["UserDataService"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_user_data_service__WEBPACK_IMPORTED_MODULE_2__["UserDataService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
     ], LogoutComponent);
     return LogoutComponent;
 }());
@@ -832,7 +905,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"login-box\" [@simpleFadeAnimation]=\"'in'\">\n    <div class=\"container\">\n        <div class=\"row\">\n            <div class=\"col-lg-12\">\n                {{userData.firstName + ' ' + userData.middleName + ' ' + userData.lastName}}\n            </div>\n        </div>\n        <div class=\"row\">\n            <div class=\"col-lg-12\">\n                <button (click)=\"logout()\" class=\"btn btn-warning\">Logout</button>\n            </div>\n        </div>\n    </div>\n</div>"
+module.exports = "<div class=\"login-box\" [@simpleFadeAnimation]=\"'in'\">\n    <div class=\"container\">\n        <div class=\"row\">\n            <div class=\"col-lg-12\" *ngIf=\"userData\">\n                {{userData.firstName + ' ' + userData.middleName + ' ' + userData.lastName}}\n            </div>\n        </div>\n        <div class=\"row\">\n            <div class=\"col-lg-12\">\n                <button (click)=\"logout()\" class=\"btn btn-warning\">Logout</button>\n            </div>\n        </div>\n    </div>\n</div>"
 
 /***/ }),
 
