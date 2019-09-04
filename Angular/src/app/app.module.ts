@@ -16,6 +16,7 @@ import { AngularFireModule } from "@angular/fire";
 import { AngularFirestoreModule } from "@angular/fire/firestore";
 import { environment } from 'src/environments/environment';
 import { LayoutComponent } from './layout/layout/layout.component';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { LayoutComponent } from './layout/layout/layout.component';
     LogoutComponent,
     SignupComponent,
     ProfileComponent,
-    LayoutComponent
+    LayoutComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

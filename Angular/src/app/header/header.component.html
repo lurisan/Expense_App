@@ -1,0 +1,42 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-1 top">
+      <div id="mySidenav" class="sidenav" [ngStyle]="{'width.%':width}">
+        <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">
+          &times;
+        </a>
+        <div class="sideMenuItems">
+          <img src="assets/logo.png" alt="icon" height="30px" width="30px">&nbsp;&nbsp;&nbsp;Expense App
+        </div>
+        <div>&nbsp;</div>
+        <div class="sideMenuItems" (click)="menuClick('home')">
+          Home
+        </div>
+        <div>&nbsp;</div>
+        <div class="sideMenuItems" (click)="menuClick('add')">
+          Add Expense
+        </div>
+        <div>&nbsp;</div>
+        <div class="sideMenuItems" (click)="menuClick('edit')">
+          Edit Expense
+        </div>
+        <div>&nbsp;</div>
+        <div class="sideMenuItems" (click)="menuClick('delete')">
+          Delete Expense
+        </div>
+        <div>&nbsp;</div>
+        <div class="sideMenuItems" (click)="menuClick('logout')">
+          Logout
+        </div>
+      </div>
+      <div id="main">
+        <span style="font-size:20px;cursor:pointer" (click)="openNav()" class="{{preDefinedClassName}}">
+          &#9776;
+        </span>
+      </div>
+    </div>
+    <div class="col-11 top2">
+      Expense App
+    </div>
+  </div>
+</div>

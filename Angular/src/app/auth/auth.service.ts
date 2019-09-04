@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, CanActivateChild } from '@angular/router';
+import { Router, CanActivate } from '@angular/router';
 import { UserDataService } from '../services/user-data.service';
 
 @Injectable({ providedIn: 'root' })
-export class AuthGuard implements CanActivateChild {
+export class AuthGuard implements CanActivate {
   constructor(private router: Router, private userDataService: UserDataService) {
   }
 
-  canActivateChild() {
+  canActivate() {
     let userData = this.userDataService.getUserData();
     if (userData)
       return true

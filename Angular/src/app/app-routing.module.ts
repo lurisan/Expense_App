@@ -9,7 +9,6 @@ import { ProfileComponent } from './profile/profile.component';
 import { SignupComponent } from './signup/signup.component';
 import { AuthGuard } from './auth/auth.service';
 import { LayoutComponent } from './layout/layout/layout.component';
-import { PathResolveService } from './auth/path-resolve.service';
 
 const routes: Routes = [{
   path: '',
@@ -23,7 +22,7 @@ const routes: Routes = [{
 {
   path: 'expense-app',
   component: LayoutComponent,
-  // canActivateChild: [AuthGuard],
+  // canActivate: [AuthGuard],
   children: [{
     path: '',
     pathMatch: 'full',
@@ -48,16 +47,9 @@ const routes: Routes = [{
   {
     path: '**',
     pathMatch: 'full',
-    // resolve: PathResolveService,
     redirectTo: 'home'
   }]
 },
-// {
-//   path: 'expense-app/**',
-//   pathMatch: 'full',
-//   resolve: PathResolveService,
-//   redirectTo: 'expense-app/home'
-// },
 {
   path: 'logout',
   component: LogoutComponent
