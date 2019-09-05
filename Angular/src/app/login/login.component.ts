@@ -33,14 +33,21 @@ export class LoginComponent implements OnInit {
   }
 
   submit() {
-    this.wrong = undefined;
-    if (this.signin.username === "") this.message = "Enter Username";
-    else if (this.signin.password === "") this.message = "Enter Password";
+    if (this.signin.username === "") {
+      this.wrong = "wrong"
+      this.message = "Enter Username";
+    }
+    else if (this.signin.password === "") {
+      this.wrong = "wrong"
+      this.message = "Enter Password";
+    }
     else
       this.authenticationService.authenticate().subscribe(querySnapshot => {
-        querySnapshot.docs.forEach(element => {
+        for (let i = 0; i < querySnapshot.docs.length; i++) {
+          this.wrong = "wrong"
+          let element = querySnapshot.docs[i]
           let data = element.data();
-          if (data.username === this.signin.username)
+          if (data.username === this.signin.username) {
             if (data.password === this.signin.password) {
               this.userDataService.setUserData(data);
               this.router.navigateByUrl("/expense-app/home");
@@ -48,12 +55,19 @@ export class LoginComponent implements OnInit {
               this.wrong = "wrong";
               this.message = "Wrong Password";
             }
+            break;
+          }
           else {
             this.wrong = "wrong";
             this.message = "Unknown Username";
           }
-        });
+        };
       });
+  }
+
+  keyUp() {
+    this.wrong = undefined;
+    this.message = "Expense App Login";
   }
 
   signup() {

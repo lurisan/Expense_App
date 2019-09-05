@@ -703,7 +703,7 @@ module.exports = ".login-box {\r\n  width: 360px;\r\n  margin: 7% auto;\r\n}\r\n
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"login-box\" [@simpleFadeAnimation]=\"'in'\">\n  <div class=\"login-logo\">\n    <h3><img src=\"assets/logo.png\" height=\"40%\" width=\"40%\" alt=\"Expense App Logo\"></h3>\n  </div>\n  <div class=\"login-box-body\">\n    <p class=\"login-box-msg {{wrong}}\">{{message}}</p>\n    <input type=\"text\" placeholder=\"Username\" class=\"form-control\" [(ngModel)]=\"signin.username\">\n    <input type=\"password\" placeholder=\"Password\" class=\"form-control\" [(ngModel)]=\"signin.password\">\n    <input type=\"submit\" value=\"Sign In\" class=\"btn btn-success\" (click)=\"submit()\">\n    <span class=\"space\"></span>\n    <input type=\"submit\" value=\"Sign Up\" class=\"btn btn-success\" (click)=\"signup()\">\n  </div>\n</div>"
+module.exports = "<div class=\"login-box\" [@simpleFadeAnimation]=\"'in'\">\n  <div class=\"login-logo\">\n    <h3><img src=\"assets/logo.png\" height=\"40%\" width=\"40%\" alt=\"Expense App Logo\"></h3>\n  </div>\n  <div class=\"login-box-body\">\n    <p class=\"login-box-msg {{wrong}}\">{{message}}</p>\n    <input type=\"text\" placeholder=\"Username\" class=\"form-control\" [(ngModel)]=\"signin.username\" (keyup)=\"keyUp()\">\n    <input type=\"password\" placeholder=\"Password\" class=\"form-control\" [(ngModel)]=\"signin.password\" (keyup)=\"keyUp()\">\n    <input type=\"submit\" value=\"Sign In\" class=\"btn btn-success\" (click)=\"submit()\">\n    <span class=\"space\"></span>\n    <input type=\"submit\" value=\"Sign Up\" class=\"btn btn-success\" (click)=\"signup()\">\n  </div>\n</div>"
 
 /***/ }),
 
@@ -744,16 +744,21 @@ var LoginComponent = /** @class */ (function () {
     };
     LoginComponent.prototype.submit = function () {
         var _this = this;
-        this.wrong = undefined;
-        if (this.signin.username === "")
+        if (this.signin.username === "") {
+            this.wrong = "wrong";
             this.message = "Enter Username";
-        else if (this.signin.password === "")
+        }
+        else if (this.signin.password === "") {
+            this.wrong = "wrong";
             this.message = "Enter Password";
+        }
         else
             this.authenticationService.authenticate().subscribe(function (querySnapshot) {
-                querySnapshot.docs.forEach(function (element) {
+                for (var i = 0; i < querySnapshot.docs.length; i++) {
+                    _this.wrong = "wrong";
+                    var element = querySnapshot.docs[i];
                     var data = element.data();
-                    if (data.username === _this.signin.username)
+                    if (data.username === _this.signin.username) {
                         if (data.password === _this.signin.password) {
                             _this.userDataService.setUserData(data);
                             _this.router.navigateByUrl("/expense-app/home");
@@ -762,12 +767,19 @@ var LoginComponent = /** @class */ (function () {
                             _this.wrong = "wrong";
                             _this.message = "Wrong Password";
                         }
+                        break;
+                    }
                     else {
                         _this.wrong = "wrong";
                         _this.message = "Unknown Username";
                     }
-                });
+                }
+                ;
             });
+    };
+    LoginComponent.prototype.keyUp = function () {
+        this.wrong = undefined;
+        this.message = "Expense App Login";
     };
     LoginComponent.prototype.signup = function () {
         this.router.navigateByUrl("/signup");

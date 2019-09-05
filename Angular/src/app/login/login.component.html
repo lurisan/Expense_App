@@ -4,8 +4,8 @@
   </div>
   <div class="login-box-body">
     <p class="login-box-msg {{wrong}}">{{message}}</p>
-    <input type="text" placeholder="Username" class="form-control" [(ngModel)]="signin.username">
-    <input type="password" placeholder="Password" class="form-control" [(ngModel)]="signin.password">
+    <input type="text" placeholder="Username" class="form-control" [(ngModel)]="signin.username" (keyup)="keyUp()">
+    <input type="password" placeholder="Password" class="form-control" [(ngModel)]="signin.password" (keyup)="keyUp()">
     <input type="submit" value="Sign In" class="btn btn-success" (click)="submit()">
     <span class="space"></span>
     <input type="submit" value="Sign Up" class="btn btn-success" (click)="signup()">
