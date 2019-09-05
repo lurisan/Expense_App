@@ -1,9 +1,12 @@
-<div>
-  Are You Sure You Want To Logout ?
-</div>
-<div style="cursor: pointer;" (click)="click('yes')">
-  Yes
-</div>
-<div style="cursor: pointer;" (click)="click('no')">
-  No
+<div class="background">
+  <div class="modal-dialog" style="margin-top:30% " [@simpleFadeAnimation]="'in'">
+    <div class="modal-content">
+      <div class="modal-body" id="modal-body">
+        <label style="margin:9%;">Are You Sure You Want To Logout?</label><br>
+        <button type="button" class="btn btn-danger" style="width:40%;margin:5%"
+          (click)="btnClicked('yes')">Yes</button>
+        <button type="button" class="btn btn-success" style="width:40%;margin:5%" (click)="btnClicked('no')">No</button>
+      </div>
+    </div>
+  </div>
 </div>

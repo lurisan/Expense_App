@@ -815,7 +815,7 @@ var LoginComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2xvZ291dC9sb2dvdXQuY29tcG9uZW50LmNzcyJ9 */"
+module.exports = ".background {\r\n  display: block;\r\n  width: 100%;\r\n  height: 100%;\r\n  top: 0;\r\n  left: 0;\r\n  right: 0;\r\n  bottom: 0;\r\n  background-color: rgba(83, 78, 78, 0.562);\r\n  z-index: 2;\r\n  align-content: center;\r\n  position: fixed;\r\n}\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvbG9nb3V0L2xvZ291dC5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsY0FBYztFQUNkLFdBQVc7RUFDWCxZQUFZO0VBQ1osTUFBTTtFQUNOLE9BQU87RUFDUCxRQUFRO0VBQ1IsU0FBUztFQUNULHlDQUF5QztFQUN6QyxVQUFVO0VBQ1YscUJBQXFCO0VBQ3JCLGVBQWU7QUFDakIiLCJmaWxlIjoic3JjL2FwcC9sb2dvdXQvbG9nb3V0LmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuYmFja2dyb3VuZCB7XHJcbiAgZGlzcGxheTogYmxvY2s7XHJcbiAgd2lkdGg6IDEwMCU7XHJcbiAgaGVpZ2h0OiAxMDAlO1xyXG4gIHRvcDogMDtcclxuICBsZWZ0OiAwO1xyXG4gIHJpZ2h0OiAwO1xyXG4gIGJvdHRvbTogMDtcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiByZ2JhKDgzLCA3OCwgNzgsIDAuNTYyKTtcclxuICB6LWluZGV4OiAyO1xyXG4gIGFsaWduLWNvbnRlbnQ6IGNlbnRlcjtcclxuICBwb3NpdGlvbjogZml4ZWQ7XHJcbn1cclxuIl19 */"
 
 /***/ }),
 
@@ -826,7 +826,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div>\n  Are You Sure You Want To Logout ?\n</div>\n<div style=\"cursor: pointer;\" (click)=\"click('yes')\">\n  Yes\n</div>\n<div style=\"cursor: pointer;\" (click)=\"click('no')\">\n  No\n</div>"
+module.exports = "<div class=\"background\">\n  <div class=\"modal-dialog\" style=\"margin-top:30% \" [@simpleFadeAnimation]=\"'in'\">\n    <div class=\"modal-content\">\n      <div class=\"modal-body\" id=\"modal-body\">\n        <label style=\"margin:9%;\">Are You Sure You Want To Logout?</label><br>\n        <button type=\"button\" class=\"btn btn-danger\" style=\"width:40%;margin:5%\"\n          (click)=\"btnClicked('yes')\">Yes</button>\n        <button type=\"button\" class=\"btn btn-success\" style=\"width:40%;margin:5%\" (click)=\"btnClicked('no')\">No</button>\n      </div>\n    </div>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -844,31 +844,41 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _services_user_data_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../services/user-data.service */ "./src/app/services/user-data.service.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_animations__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/animations */ "./node_modules/@angular/animations/fesm5/animations.js");
+
 
 
 
 
 var LogoutComponent = /** @class */ (function () {
-    function LogoutComponent(UserDataService, router) {
-        this.UserDataService = UserDataService;
+    function LogoutComponent(router, userDataService) {
         this.router = router;
+        this.userDataService = userDataService;
     }
     LogoutComponent.prototype.ngOnInit = function () {
-        this.UserDataService.setUserData(null);
     };
-    LogoutComponent.prototype.click = function (option) {
-        if (option === 'yes')
+    LogoutComponent.prototype.btnClicked = function (type) {
+        if (type === 'yes') {
             this.router.navigateByUrl('/login');
+            this.userDataService.setUserData(null);
+        }
         else
-            this.router.navigateByUrl('/expense-app');
+            this.router.navigateByUrl('/expense-app/home');
     };
     LogoutComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-logout',
             template: __webpack_require__(/*! ./logout.component.html */ "./src/app/logout/logout.component.html"),
+            animations: [
+                Object(_angular_animations__WEBPACK_IMPORTED_MODULE_4__["trigger"])("simpleFadeAnimation", [
+                    Object(_angular_animations__WEBPACK_IMPORTED_MODULE_4__["state"])("in", Object(_angular_animations__WEBPACK_IMPORTED_MODULE_4__["style"])({ opacity: 1 })),
+                    Object(_angular_animations__WEBPACK_IMPORTED_MODULE_4__["transition"])(":enter", [Object(_angular_animations__WEBPACK_IMPORTED_MODULE_4__["style"])({ opacity: 0 }), Object(_angular_animations__WEBPACK_IMPORTED_MODULE_4__["animate"])(1500)]),
+                    Object(_angular_animations__WEBPACK_IMPORTED_MODULE_4__["transition"])(":leave", Object(_angular_animations__WEBPACK_IMPORTED_MODULE_4__["animate"])(1000, Object(_angular_animations__WEBPACK_IMPORTED_MODULE_4__["style"])({ opacity: 0 })))
+                ])
+            ],
             styles: [__webpack_require__(/*! ./logout.component.css */ "./src/app/logout/logout.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_user_data_service__WEBPACK_IMPORTED_MODULE_2__["UserDataService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"], _services_user_data_service__WEBPACK_IMPORTED_MODULE_2__["UserDataService"]])
     ], LogoutComponent);
     return LogoutComponent;
 }());
@@ -1140,6 +1150,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var SignupComponent = /** @class */ (function () {
+    // mention suggestions for password and phno
     function SignupComponent(router, signUpService) {
         this.router = router;
         this.signUpService = signUpService;

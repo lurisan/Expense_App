@@ -2,7 +2,6 @@ import { Component, OnInit } from "@angular/core";
 import { trigger, state, style, transition, animate } from "@angular/animations";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { User } from "../models/user";
-import { UserService } from "../services/user.service";
 import { Router } from "@angular/router";
 import { SignupService } from '../services/signup.service';
 
@@ -46,7 +45,7 @@ export class SignupComponent implements OnInit {
       // Validators.pattern(new RegExp("^[+]{1}[0-9]{1,2}[ ][0-9]{10}$"))
     ])
   });
-
+// mention suggestions for password and phno
   constructor(private router: Router, private signUpService: SignupService) {
     this.signUpData = {
       firstName: "",
