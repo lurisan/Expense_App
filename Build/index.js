@@ -11,7 +11,7 @@ const apkSource = path.join(cordovaSource, 'platforms', 'android', 'app', 'build
 const angularBuildCommand = 'cd ' + angularSource + ' && ng build'
 const cordovaBuildCommand = 'cd ' + cordovaSource + ' && cordova build'
 const firebaseBuildCommand = 'cd ' + path.join(firebaseSource, '../') + ' && firebase deploy'
-const gitPushCommand = 'cd ' + __dirname + ' && git add -A && git commit -m "expense app" && git push'
+const gitPushCommand = 'cd ' + path.join(__dirname,'../') + ' && git add -A && git commit -m "expense app" && git push'
 
 const appDestination = path.join(__dirname, '../', 'App')
 
