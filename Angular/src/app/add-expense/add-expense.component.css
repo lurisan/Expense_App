@@ -1,0 +1,9 @@
+.box {
+  text-align: center;
+}
+
+@media screen and (max-width: 324px) {
+    .button {
+        margin-left: 40%;
+      }
+}

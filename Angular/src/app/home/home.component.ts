@@ -1,11 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import {
-  trigger,
-  state,
-  style,
-  transition,
-  animate
-} from "@angular/animations";
+import { trigger, state, style, transition, animate } from "@angular/animations";
 import { Router } from "@angular/router";
 
 @Component({
@@ -21,11 +15,8 @@ import { Router } from "@angular/router";
   ]
 })
 export class HomeComponent implements OnInit {
-  constructor(private router: Router) { }
+  constructor() { }
 
   ngOnInit() { }
 
-  profile() {
-    this.router.navigateByUrl("/expense-app/profile");
-  }
 }

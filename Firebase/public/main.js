@@ -30,7 +30,7 @@ webpackEmptyAsyncContext.id = "./src/$$_lazy_route_resource lazy recursive";
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2FkZC1leHBlbnNlL2FkZC1leHBlbnNlLmNvbXBvbmVudC5jc3MifQ== */"
+module.exports = ".box {\r\n  text-align: center;\r\n}\r\n\r\n@media screen and (max-width: 324px) {\r\n    .button {\r\n        margin-left: 40%;\r\n      }\r\n}\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYWRkLWV4cGVuc2UvYWRkLWV4cGVuc2UuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLGtCQUFrQjtBQUNwQjs7QUFFQTtJQUNJO1FBQ0ksZ0JBQWdCO01BQ2xCO0FBQ04iLCJmaWxlIjoic3JjL2FwcC9hZGQtZXhwZW5zZS9hZGQtZXhwZW5zZS5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmJveCB7XHJcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG59XHJcblxyXG5AbWVkaWEgc2NyZWVuIGFuZCAobWF4LXdpZHRoOiAzMjRweCkge1xyXG4gICAgLmJ1dHRvbiB7XHJcbiAgICAgICAgbWFyZ2luLWxlZnQ6IDQwJTtcclxuICAgICAgfVxyXG59XHJcbiJdfQ== */"
 
 /***/ }),
 
@@ -41,7 +41,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  add-expense works!\n</p>\n"
+module.exports = "<div class=\"box\">\n  <div class=\"table-editable\">\n    <table class=\"table table-bordered table-striped text-center\" align=\"center\"\n      style=\"background-color:white; width:50%; margin-top: 5%;\">\n      <tr>\n        <th class=\"text-center\">Date</th>\n        <th class=\"text-center\">Expenses</th>\n        <th class=\"text-center\">Total</th>\n        <th class=\"text-center\">Remove</th>\n      </tr>\n      <tr *ngFor=\"let dailyExpense of dailyExpenseSheet; let i=index\">\n        <td>\n          <input type=\"date\" [(ngModel)]=\"dailyExpense.date\" disabled>\n        </td>\n        <td>\n          <label (click)=\"expenseFlag[i]=true\">{{dailyExpense.expenseArray.join('+')}}</label>\n          <ng-container *ngIf=\"expenseFlag[i]\">\n            <ng-container *ngFor=\"let expenseArr of dailyExpense.expenseArray; let j=index\">\n              <input type=\"text\" [(ngModel)]=\"expenseArr\" (blur)=\"addToArray(i,j, expenseArr)\"\n                (focus)=\"fieldName='Save'\">\n            </ng-container>\n            <button (click)=\"add(i,fieldName)\">{{fieldName}} Field</button>\n            <button (click)=\"remove(i,j,'Remove Field')\">Remove Field</button>\n          </ng-container>\n        </td>\n        <td>\n          <label>\n            {{dailyExpense.total}}\n          </label>\n        </td>\n        <td>\n          <span class=\"table-remove\">\n            <button type=\"button\" class=\"btn-danger\" (click)=\"remove(i)\">Remove</button>\n          </span>\n        </td>\n      </tr>\n    </table>\n  </div>\n  <button class=\"btn-success button\" (click)=\"add(null,'Add Expense');saveExpense()\">Add Expense</button>\n</div>"
 
 /***/ }),
 
@@ -57,12 +57,106 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AddExpenseComponent", function() { return AddExpenseComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _services_expenses_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../services/expenses.service */ "./src/app/services/expenses.service.ts");
+/* harmony import */ var _models_expense__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../models/expense */ "./src/app/models/expense.ts");
+/* harmony import */ var _services_user_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../services/user.service */ "./src/app/services/user.service.ts");
+
+
+
 
 
 var AddExpenseComponent = /** @class */ (function () {
-    function AddExpenseComponent() {
+    function AddExpenseComponent(userService, expensesService) {
+        this.userService = userService;
+        this.expensesService = expensesService;
+        this.expenseFlag = [false, false, false, false];
+        this.fieldName = "Add";
+        this.dailyExpenseSheet = [
+            { date: "", expenseArray: [0], total: 0 }
+        ];
+        this.expenseSheet = {
+            username: "",
+            expenses: [],
+            total: 0
+        };
+        this.userData = this.userService.getUserData();
+        this.dailyExpenseSheet[0].date = this.getCurrentDate();
     }
     AddExpenseComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.expensesService.getExpenseDetails().subscribe(function (querySnapshot) {
+            for (var i = 0; i < querySnapshot.docs.length; i++) {
+                var data = querySnapshot.docs[i].data();
+                if (_this.userData)
+                    if (_this.userData.username === data.username) {
+                        _this.expenseSheet = data;
+                        break;
+                    }
+            }
+        });
+    };
+    AddExpenseComponent.prototype.remove = function (i, j, name) {
+        if (name === 'Remove Field') {
+            this.dailyExpenseSheet[i].expenseArray.splice(j, 1);
+            this.fieldName = "Save";
+        }
+        else {
+            this.dailyExpenseSheet.splice(i, 1);
+        }
+    };
+    AddExpenseComponent.prototype.add = function (i, fieldName) {
+        if (fieldName === "Add") {
+            this.dailyExpenseSheet[i].expenseArray.push(0);
+            this.fieldName = "Save";
+        }
+        else if (fieldName === "Save") {
+            this.expenseFlag[i] = false;
+            this.dailyExpenseSheet[i].total = this.dailyExpenseSheet[i].expenseArray.reduce(function (acc, cur) { return acc + cur; }, 0);
+            this.fieldName = "Add";
+        }
+        else if (fieldName === 'Add Expense') {
+            var dailyExpense = { date: this.getdate(this.dailyExpenseSheet[this.dailyExpenseSheet.length - 1].date), expenseArray: [0], total: 0 };
+            this.dailyExpenseSheet.push(dailyExpense);
+        }
+    };
+    AddExpenseComponent.prototype.addToArray = function (i, j, value) {
+        this.dailyExpenseSheet[i].expenseArray[j] = parseFloat(value);
+    };
+    AddExpenseComponent.prototype.getdate = function (dateI) {
+        var date = new Date(dateI);
+        date.setDate(date.getDate() + 1);
+        return date.getFullYear() + '-' + (('0' + (date.getMonth() + 1)).slice(-2)) + '-' + ('0' + date.getDate()).slice(-2);
+    };
+    AddExpenseComponent.prototype.saveExpense = function () {
+        this.expenseSheet.username = this.userData.username;
+        var monthlyExpense = new _models_expense__WEBPACK_IMPORTED_MODULE_3__["MonthlyExpense"]();
+        var yearlyExpense = new _models_expense__WEBPACK_IMPORTED_MODULE_3__["YearlyExpense"]();
+        this.dailyExpenseSheet.forEach(function (expense) {
+            var dailyExpense = new _models_expense__WEBPACK_IMPORTED_MODULE_3__["DailyExpense"]();
+            dailyExpense.day = expense.date.split('-')[2];
+            dailyExpense.dayExpenses = expense.expenseArray;
+            dailyExpense.dayTotal = expense.expenseArray.reduce(function (acc, cur) { return acc + cur; }, 0);
+            monthlyExpense.month = expense.date.split('-')[1];
+            monthlyExpense.monthlyExpense.push(dailyExpense);
+            monthlyExpense.monthTotal = monthlyExpense.monthTotal + dailyExpense.dayTotal;
+        });
+        yearlyExpense.year = this.dailyExpenseSheet[0].date.split('-')[0];
+        yearlyExpense.yearlyExpense.push(monthlyExpense);
+        yearlyExpense.yearTotal = yearlyExpense.yearTotal + monthlyExpense.monthTotal;
+        this.expenseSheet.expenses.push(yearlyExpense);
+        this.expensesService.postExpenseDetails(this.expenseSheet).then(function (data) {
+            if (data.id)
+                console.log("done");
+        }).catch(function (err) {
+            console.log(err);
+        });
+    };
+    AddExpenseComponent.prototype.getCurrentDate = function () {
+        var today = new Date();
+        var d = String(today.getDate()).padStart(2, '0');
+        var m = String(today.getMonth() + 1).padStart(2, '0');
+        var y = today.getFullYear();
+        return y + '-' + m + '-' + d;
     };
     AddExpenseComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -70,7 +164,7 @@ var AddExpenseComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./add-expense.component.html */ "./src/app/add-expense/add-expense.component.html"),
             styles: [__webpack_require__(/*! ./add-expense.component.css */ "./src/app/add-expense/add-expense.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_user_service__WEBPACK_IMPORTED_MODULE_4__["UserService"], _services_expenses_service__WEBPACK_IMPORTED_MODULE_2__["ExpensesService"]])
     ], AddExpenseComponent);
     return AddExpenseComponent;
 }());
@@ -345,18 +439,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var _services_user_data_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../services/user-data.service */ "./src/app/services/user-data.service.ts");
+/* harmony import */ var _services_user_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../services/user.service */ "./src/app/services/user.service.ts");
 
 
 
 
 var AuthGuard = /** @class */ (function () {
-    function AuthGuard(router, userDataService) {
+    function AuthGuard(router, userService) {
         this.router = router;
-        this.userDataService = userDataService;
+        this.userService = userService;
     }
     AuthGuard.prototype.canActivate = function () {
-        var userData = this.userDataService.getUserData();
+        var userData = this.userService.getUserData();
         if (userData)
             return true;
         this.router.navigateByUrl('/login');
@@ -364,7 +458,7 @@ var AuthGuard = /** @class */ (function () {
     };
     AuthGuard = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({ providedIn: 'root' }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"], _services_user_data_service__WEBPACK_IMPORTED_MODULE_3__["UserDataService"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"], _services_user_service__WEBPACK_IMPORTED_MODULE_3__["UserService"]])
     ], AuthGuard);
     return AuthGuard;
 }());
@@ -519,19 +613,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HeaderComponent", function() { return HeaderComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _services_user_data_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../services/user-data.service */ "./src/app/services/user-data.service.ts");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 
 
 
 var HeaderComponent = /** @class */ (function () {
-    function HeaderComponent(userDataService, router) {
-        this.userDataService = userDataService;
+    function HeaderComponent(router) {
         this.router = router;
     }
     HeaderComponent.prototype.ngOnInit = function () {
-        this.user = this.userDataService.getUserData();
     };
     HeaderComponent.prototype.openNav = function () {
         document.getElementById("mySidenav").style.width = "250px";
@@ -550,7 +640,7 @@ var HeaderComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./header.component.html */ "./src/app/header/header.component.html"),
             styles: [__webpack_require__(/*! ./header.component.css */ "./src/app/header/header.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_user_data_service__WEBPACK_IMPORTED_MODULE_2__["UserDataService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
     ], HeaderComponent);
     return HeaderComponent;
 }());
@@ -577,7 +667,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div [@simpleFadeAnimation]=\"'in'\">\n  <p>\n    home works!\n  </p>\n  <button (click)=\"profile()\" class=\"btn btn-success\">Profile</button>\n</div>\n"
+module.exports = "<div [@simpleFadeAnimation]=\"'in'\">\n  <p>\n    home works!\n  </p>\n</div>"
 
 /***/ }),
 
@@ -594,19 +684,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_animations__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/animations */ "./node_modules/@angular/animations/fesm5/animations.js");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-
 
 
 
 var HomeComponent = /** @class */ (function () {
-    function HomeComponent(router) {
-        this.router = router;
+    function HomeComponent() {
     }
     HomeComponent.prototype.ngOnInit = function () { };
-    HomeComponent.prototype.profile = function () {
-        this.router.navigateByUrl("/expense-app/profile");
-    };
     HomeComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: "app-home",
@@ -620,7 +704,7 @@ var HomeComponent = /** @class */ (function () {
             ],
             styles: [__webpack_require__(/*! ./home.component.css */ "./src/app/home/home.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
     ], HomeComponent);
     return HomeComponent;
 }());
@@ -720,11 +804,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var _services_authentication_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../services/authentication.service */ "./src/app/services/authentication.service.ts");
-/* harmony import */ var _models_signin__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../models/signin */ "./src/app/models/signin.ts");
-/* harmony import */ var _angular_animations__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/animations */ "./node_modules/@angular/animations/fesm5/animations.js");
-/* harmony import */ var _services_user_data_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../services/user-data.service */ "./src/app/services/user-data.service.ts");
-
+/* harmony import */ var _models_signin__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../models/signin */ "./src/app/models/signin.ts");
+/* harmony import */ var _angular_animations__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/animations */ "./node_modules/@angular/animations/fesm5/animations.js");
+/* harmony import */ var _services_user_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../services/user.service */ "./src/app/services/user.service.ts");
 
 
 
@@ -732,15 +814,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var LoginComponent = /** @class */ (function () {
-    function LoginComponent(router, authenticationService, userDataService) {
+    function LoginComponent(router, userService) {
         this.router = router;
-        this.authenticationService = authenticationService;
-        this.userDataService = userDataService;
+        this.userService = userService;
         this.message = "Expense App Login";
         this.wrong = undefined;
+        this.signin = new _models_signin__WEBPACK_IMPORTED_MODULE_3__["Signin"]();
     }
     LoginComponent.prototype.ngOnInit = function () {
-        this.signin = new _models_signin__WEBPACK_IMPORTED_MODULE_4__["Signin"]();
     };
     LoginComponent.prototype.submit = function () {
         var _this = this;
@@ -753,14 +834,14 @@ var LoginComponent = /** @class */ (function () {
             this.message = "Enter Password";
         }
         else
-            this.authenticationService.authenticate().subscribe(function (querySnapshot) {
+            this.userService.getUser().subscribe(function (querySnapshot) {
                 for (var i = 0; i < querySnapshot.docs.length; i++) {
                     _this.wrong = "wrong";
-                    var element = querySnapshot.docs[i];
-                    var data = element.data();
+                    //@ts-ignore
+                    var data = querySnapshot.docs[i].data();
                     if (data.username === _this.signin.username) {
                         if (data.password === _this.signin.password) {
-                            _this.userDataService.setUserData(data);
+                            _this.userService.setUserData(data);
                             _this.router.navigateByUrl("/expense-app/home");
                         }
                         else {
@@ -789,17 +870,15 @@ var LoginComponent = /** @class */ (function () {
             selector: "app-login",
             template: __webpack_require__(/*! ./login.component.html */ "./src/app/login/login.component.html"),
             animations: [
-                Object(_angular_animations__WEBPACK_IMPORTED_MODULE_5__["trigger"])("simpleFadeAnimation", [
-                    Object(_angular_animations__WEBPACK_IMPORTED_MODULE_5__["state"])("in", Object(_angular_animations__WEBPACK_IMPORTED_MODULE_5__["style"])({ opacity: 1 })),
-                    Object(_angular_animations__WEBPACK_IMPORTED_MODULE_5__["transition"])(":enter", [Object(_angular_animations__WEBPACK_IMPORTED_MODULE_5__["style"])({ opacity: 0 }), Object(_angular_animations__WEBPACK_IMPORTED_MODULE_5__["animate"])(1500)]),
-                    Object(_angular_animations__WEBPACK_IMPORTED_MODULE_5__["transition"])(":leave", Object(_angular_animations__WEBPACK_IMPORTED_MODULE_5__["animate"])(1000, Object(_angular_animations__WEBPACK_IMPORTED_MODULE_5__["style"])({ opacity: 0 })))
+                Object(_angular_animations__WEBPACK_IMPORTED_MODULE_4__["trigger"])("simpleFadeAnimation", [
+                    Object(_angular_animations__WEBPACK_IMPORTED_MODULE_4__["state"])("in", Object(_angular_animations__WEBPACK_IMPORTED_MODULE_4__["style"])({ opacity: 1 })),
+                    Object(_angular_animations__WEBPACK_IMPORTED_MODULE_4__["transition"])(":enter", [Object(_angular_animations__WEBPACK_IMPORTED_MODULE_4__["style"])({ opacity: 0 }), Object(_angular_animations__WEBPACK_IMPORTED_MODULE_4__["animate"])(1500)]),
+                    Object(_angular_animations__WEBPACK_IMPORTED_MODULE_4__["transition"])(":leave", Object(_angular_animations__WEBPACK_IMPORTED_MODULE_4__["animate"])(1000, Object(_angular_animations__WEBPACK_IMPORTED_MODULE_4__["style"])({ opacity: 0 })))
                 ])
             ],
             styles: [__webpack_require__(/*! ./login.component.css */ "./src/app/login/login.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"],
-            _services_authentication_service__WEBPACK_IMPORTED_MODULE_3__["AuthenticationService"],
-            _services_user_data_service__WEBPACK_IMPORTED_MODULE_6__["UserDataService"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"], _services_user_service__WEBPACK_IMPORTED_MODULE_5__["UserService"]])
     ], LoginComponent);
     return LoginComponent;
 }());
@@ -842,7 +921,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LogoutComponent", function() { return LogoutComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _services_user_data_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../services/user-data.service */ "./src/app/services/user-data.service.ts");
+/* harmony import */ var _services_user_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../services/user.service */ "./src/app/services/user.service.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _angular_animations__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/animations */ "./node_modules/@angular/animations/fesm5/animations.js");
 
@@ -851,16 +930,16 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var LogoutComponent = /** @class */ (function () {
-    function LogoutComponent(router, userDataService) {
+    function LogoutComponent(router, userService) {
         this.router = router;
-        this.userDataService = userDataService;
+        this.userService = userService;
     }
     LogoutComponent.prototype.ngOnInit = function () {
     };
     LogoutComponent.prototype.btnClicked = function (type) {
         if (type === 'yes') {
             this.router.navigateByUrl('/login');
-            this.userDataService.setUserData(null);
+            this.userService.setUserData(null);
         }
         else
             this.router.navigateByUrl('/expense-app/home');
@@ -878,9 +957,52 @@ var LogoutComponent = /** @class */ (function () {
             ],
             styles: [__webpack_require__(/*! ./logout.component.css */ "./src/app/logout/logout.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"], _services_user_data_service__WEBPACK_IMPORTED_MODULE_2__["UserDataService"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"], _services_user_service__WEBPACK_IMPORTED_MODULE_2__["UserService"]])
     ], LogoutComponent);
     return LogoutComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/models/expense.ts":
+/*!***********************************!*\
+  !*** ./src/app/models/expense.ts ***!
+  \***********************************/
+/*! exports provided: DailyExpense, MonthlyExpense, YearlyExpense */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DailyExpense", function() { return DailyExpense; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MonthlyExpense", function() { return MonthlyExpense; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "YearlyExpense", function() { return YearlyExpense; });
+var DailyExpense = /** @class */ (function () {
+    function DailyExpense() {
+        this.day = 1;
+        this.dayExpenses = [];
+        this.dayTotal = 0;
+    }
+    return DailyExpense;
+}());
+
+var MonthlyExpense = /** @class */ (function () {
+    function MonthlyExpense() {
+        this.month = 1;
+        this.monthlyExpense = [];
+        this.monthTotal = 0;
+    }
+    return MonthlyExpense;
+}());
+
+var YearlyExpense = /** @class */ (function () {
+    function YearlyExpense() {
+        this.year = 2010;
+        this.yearlyExpense = [];
+        this.yearTotal = 0;
+    }
+    return YearlyExpense;
 }());
 
 
@@ -927,7 +1049,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"login-box\" [@simpleFadeAnimation]=\"'in'\">\n    <div class=\"container\">\n        <div class=\"row\">\n            <div class=\"col-lg-12\" *ngIf=\"userData\">\n                {{userData.firstName + ' ' + userData.middleName + ' ' + userData.lastName}}\n            </div>\n        </div>\n        <div class=\"row\">\n            <div class=\"col-lg-12\">\n                <button (click)=\"logout()\" class=\"btn btn-warning\">Logout</button>\n            </div>\n        </div>\n    </div>\n</div>"
+module.exports = "<div class=\"login-box\" [@simpleFadeAnimation]=\"'in'\">\n    <p>\n        profile Works!\n    </p>\n</div>"
 
 /***/ }),
 
@@ -943,43 +1065,37 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ProfileComponent", function() { return ProfileComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _services_user_data_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../services/user-data.service */ "./src/app/services/user-data.service.ts");
-/* harmony import */ var _angular_animations__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/animations */ "./node_modules/@angular/animations/fesm5/animations.js");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_animations__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/animations */ "./node_modules/@angular/animations/fesm5/animations.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _services_user_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../services/user.service */ "./src/app/services/user.service.ts");
 
 
 
 
 
 var ProfileComponent = /** @class */ (function () {
-    function ProfileComponent(userDataService, router) {
-        this.userDataService = userDataService;
+    function ProfileComponent(userService, router) {
+        this.userService = userService;
         this.router = router;
     }
     ProfileComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.userDataService.userDataObservable.subscribe(function (user) {
-            _this.userData = user;
-            console.log(_this.userData);
-        });
-    };
-    ProfileComponent.prototype.logout = function () {
-        this.router.navigateByUrl('/login');
+        this.userData = this.userService.getUserData();
+        console.log(this.userData);
     };
     ProfileComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: "app-profile",
             template: __webpack_require__(/*! ./profile.component.html */ "./src/app/profile/profile.component.html"),
             animations: [
-                Object(_angular_animations__WEBPACK_IMPORTED_MODULE_3__["trigger"])("simpleFadeAnimation", [
-                    Object(_angular_animations__WEBPACK_IMPORTED_MODULE_3__["state"])("in", Object(_angular_animations__WEBPACK_IMPORTED_MODULE_3__["style"])({ opacity: 1 })),
-                    Object(_angular_animations__WEBPACK_IMPORTED_MODULE_3__["transition"])(":enter", [Object(_angular_animations__WEBPACK_IMPORTED_MODULE_3__["style"])({ opacity: 0 }), Object(_angular_animations__WEBPACK_IMPORTED_MODULE_3__["animate"])(1500)]),
-                    Object(_angular_animations__WEBPACK_IMPORTED_MODULE_3__["transition"])(":leave", Object(_angular_animations__WEBPACK_IMPORTED_MODULE_3__["animate"])(1000, Object(_angular_animations__WEBPACK_IMPORTED_MODULE_3__["style"])({ opacity: 0 })))
+                Object(_angular_animations__WEBPACK_IMPORTED_MODULE_2__["trigger"])("simpleFadeAnimation", [
+                    Object(_angular_animations__WEBPACK_IMPORTED_MODULE_2__["state"])("in", Object(_angular_animations__WEBPACK_IMPORTED_MODULE_2__["style"])({ opacity: 1 })),
+                    Object(_angular_animations__WEBPACK_IMPORTED_MODULE_2__["transition"])(":enter", [Object(_angular_animations__WEBPACK_IMPORTED_MODULE_2__["style"])({ opacity: 0 }), Object(_angular_animations__WEBPACK_IMPORTED_MODULE_2__["animate"])(1500)]),
+                    Object(_angular_animations__WEBPACK_IMPORTED_MODULE_2__["transition"])(":leave", Object(_angular_animations__WEBPACK_IMPORTED_MODULE_2__["animate"])(1000, Object(_angular_animations__WEBPACK_IMPORTED_MODULE_2__["style"])({ opacity: 0 })))
                 ])
             ],
             styles: [__webpack_require__(/*! ./profile.component.css */ "./src/app/profile/profile.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_user_data_service__WEBPACK_IMPORTED_MODULE_2__["UserDataService"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_user_service__WEBPACK_IMPORTED_MODULE_4__["UserService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
     ], ProfileComponent);
     return ProfileComponent;
 }());
@@ -988,117 +1104,123 @@ var ProfileComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/services/authentication.service.ts":
-/*!****************************************************!*\
-  !*** ./src/app/services/authentication.service.ts ***!
-  \****************************************************/
-/*! exports provided: AuthenticationService */
+/***/ "./src/app/services/expenses.service.ts":
+/*!**********************************************!*\
+  !*** ./src/app/services/expenses.service.ts ***!
+  \**********************************************/
+/*! exports provided: ExpensesService */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AuthenticationService", function() { return AuthenticationService; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/fire/firestore */ "./node_modules/@angular/fire/firestore/index.js");
-
-
-
-
-var AuthenticationService = /** @class */ (function () {
-    function AuthenticationService(http, firestore) {
-        this.http = http;
-        this.firestore = firestore;
-        this.signinRef = this.firestore.collection("signup");
-    }
-    AuthenticationService.prototype.authenticate = function () {
-        return this.signinRef.get();
-    };
-    AuthenticationService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-            providedIn: "root"
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"], _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__["AngularFirestore"]])
-    ], AuthenticationService);
-    return AuthenticationService;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/services/signup.service.ts":
-/*!********************************************!*\
-  !*** ./src/app/services/signup.service.ts ***!
-  \********************************************/
-/*! exports provided: SignupService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SignupService", function() { return SignupService; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ExpensesService", function() { return ExpensesService; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/fire/firestore */ "./node_modules/@angular/fire/firestore/index.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/environments/environment */ "./src/environments/environment.ts");
 
 
 
-var SignupService = /** @class */ (function () {
-    function SignupService(firestore) {
+
+
+var ExpensesService = /** @class */ (function () {
+    function ExpensesService(firestore) {
         this.firestore = firestore;
-        this.signupRef = this.firestore.collection("signup");
+        this.expenseSheetData = new rxjs__WEBPACK_IMPORTED_MODULE_3__["BehaviorSubject"](null);
+        this.expenseSheetDataObservable = this.expenseSheetData.asObservable();
+        this.expenseSheetRef = this.firestore.collection(src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].expenseSheet);
     }
-    SignupService.prototype.signup = function (signUpData) {
-        return this.signupRef.add(signUpData);
+    ExpensesService.prototype.postExpenseDetails = function (expenseSheetData) {
+        return this.expenseSheetRef.add(expenseSheetData);
     };
-    SignupService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    ExpensesService.prototype.getExpenseDetails = function () {
+        return this.expenseSheetRef.get();
+    };
+    ExpensesService.prototype.putExpenseDetails = function (expenseSheetData) {
+        return null;
+    };
+    ExpensesService.prototype.deleteExpenseDetails = function (expenseSheetData) {
+        return null;
+    };
+    ExpensesService.prototype.setExpenseSheetData = function (expenseSheet) {
+        this.expenseSheetData.next(expenseSheet);
+    };
+    ExpensesService.prototype.getExpenseSheetData = function () {
+        return this.expenseSheetData.value;
+    };
+    ExpensesService.prototype.getExpenseSheetObservable = function () {
+        return this.expenseSheetDataObservable;
+    };
+    ExpensesService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
             providedIn: 'root'
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_2__["AngularFirestore"]])
-    ], SignupService);
-    return SignupService;
+    ], ExpensesService);
+    return ExpensesService;
 }());
 
 
 
 /***/ }),
 
-/***/ "./src/app/services/user-data.service.ts":
-/*!***********************************************!*\
-  !*** ./src/app/services/user-data.service.ts ***!
-  \***********************************************/
-/*! exports provided: UserDataService */
+/***/ "./src/app/services/user.service.ts":
+/*!******************************************!*\
+  !*** ./src/app/services/user.service.ts ***!
+  \******************************************/
+/*! exports provided: UserService */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserDataService", function() { return UserDataService; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserService", function() { return UserService; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/fire/firestore */ "./node_modules/@angular/fire/firestore/index.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/environments/environment */ "./src/environments/environment.ts");
 
 
 
-var UserDataService = /** @class */ (function () {
-    function UserDataService() {
-        this.userData = new rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"](null);
+
+
+var UserService = /** @class */ (function () {
+    function UserService(firestore) {
+        this.firestore = firestore;
+        this.userData = new rxjs__WEBPACK_IMPORTED_MODULE_3__["BehaviorSubject"](null);
         this.userDataObservable = this.userData.asObservable();
+        this.userRef = this.firestore.collection(src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].user);
+        this.signinRef = this.firestore.collection(src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].user);
     }
-    UserDataService.prototype.setUserData = function (user) {
+    UserService.prototype.postUser = function (userData) {
+        return this.userRef.add(userData);
+    };
+    UserService.prototype.getUser = function () {
+        return this.signinRef.get();
+    };
+    UserService.prototype.putUser = function (userData) {
+        return null;
+    };
+    UserService.prototype.deleteUser = function (userData) {
+        return null;
+    };
+    UserService.prototype.setUserData = function (user) {
         this.userData.next(user);
     };
-    UserDataService.prototype.getUserData = function () {
+    UserService.prototype.getUserData = function () {
         return this.userData.value;
     };
-    UserDataService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    UserService.prototype.getUserObservable = function () {
+        return this.userDataObservable;
+    };
+    UserService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
             providedIn: "root"
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], UserDataService);
-    return UserDataService;
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_2__["AngularFirestore"]])
+    ], UserService);
+    return UserService;
 }());
 
 
@@ -1142,7 +1264,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_animations__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/animations */ "./node_modules/@angular/animations/fesm5/animations.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var _services_signup_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../services/signup.service */ "./src/app/services/signup.service.ts");
+/* harmony import */ var _services_user_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../services/user.service */ "./src/app/services/user.service.ts");
 
 
 
@@ -1151,9 +1273,9 @@ __webpack_require__.r(__webpack_exports__);
 
 var SignupComponent = /** @class */ (function () {
     // mention suggestions for password and phno
-    function SignupComponent(router, signUpService) {
+    function SignupComponent(router, userService) {
         this.router = router;
-        this.signUpService = signUpService;
+        this.userService = userService;
         this.signUpForm = new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormGroup"]({
             username: new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"]("", [_angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required]),
             passwords: new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormGroup"]({
@@ -1172,7 +1294,7 @@ var SignupComponent = /** @class */ (function () {
                 // Validators.pattern(new RegExp("^[+]{1}[0-9]{1,2}[ ][0-9]{10}$"))
             ])
         });
-        this.signUpData = {
+        this.userData = {
             firstName: "",
             middleName: "",
             lastName: "",
@@ -1190,14 +1312,14 @@ var SignupComponent = /** @class */ (function () {
     };
     SignupComponent.prototype.continue = function () {
         var _this = this;
-        this.signUpData.emailId = this.signUpForm.value.emailId;
-        this.signUpData.firstName = this.signUpForm.value.firstName;
-        this.signUpData.middleName = this.signUpForm.value.middleName;
-        this.signUpData.lastName = this.signUpForm.value.lastName;
-        this.signUpData.username = this.signUpForm.value.username;
-        this.signUpData.password = this.signUpForm.value.passwords.password;
-        this.signUpData.mobileNumber = this.signUpForm.value.mobileNumber;
-        this.signUpService.signup(this.signUpData).then(function (data) {
+        this.userData.emailId = this.signUpForm.value.emailId;
+        this.userData.firstName = this.signUpForm.value.firstName;
+        this.userData.middleName = this.signUpForm.value.middleName;
+        this.userData.lastName = this.signUpForm.value.lastName;
+        this.userData.username = this.signUpForm.value.username;
+        this.userData.password = this.signUpForm.value.passwords.password;
+        this.userData.mobileNumber = this.signUpForm.value.mobileNumber;
+        this.userService.postUser(this.userData).then(function (data) {
             if (data.id)
                 _this.router.navigateByUrl("/login");
         })
@@ -1221,7 +1343,7 @@ var SignupComponent = /** @class */ (function () {
             ],
             styles: [__webpack_require__(/*! ./signup.component.css */ "./src/app/signup/signup.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"], _services_signup_service__WEBPACK_IMPORTED_MODULE_5__["SignupService"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"], _services_user_service__WEBPACK_IMPORTED_MODULE_5__["UserService"]])
     ], SignupComponent);
     return SignupComponent;
 }());
@@ -1253,7 +1375,9 @@ var environment = {
         storageBucket: "expense-app-lurisan.appspot.com",
         messagingSenderId: "838268871936",
         appId: "1:838268871936:web:ca2cc04a15fd34ee"
-    }
+    },
+    user: "signup",
+    expenseSheet: "expenseSheet"
 };
 /*
  * For easier debugging in development mode, you can import the following file

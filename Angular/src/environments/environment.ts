@@ -12,7 +12,9 @@ export const environment = {
     storageBucket: "expense-app-lurisan.appspot.com",
     messagingSenderId: "838268871936",
     appId: "1:838268871936:web:ca2cc04a15fd34ee"
-  }
+  },
+  user:"signup",
+  expenseSheet:"expenseSheet"
 };
 
 /*

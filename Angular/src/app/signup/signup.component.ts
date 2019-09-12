@@ -3,7 +3,7 @@ import { trigger, state, style, transition, animate } from "@angular/animations"
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { User } from "../models/user";
 import { Router } from "@angular/router";
-import { SignupService } from '../services/signup.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: "app-signup",
@@ -19,7 +19,7 @@ import { SignupService } from '../services/signup.service';
 })
 
 export class SignupComponent implements OnInit {
-  private signUpData: User;
+  private userData: User;
   private signUpForm = new FormGroup({
     username: new FormControl("", [Validators.required]),
     passwords: new FormGroup(
@@ -45,9 +45,10 @@ export class SignupComponent implements OnInit {
       // Validators.pattern(new RegExp("^[+]{1}[0-9]{1,2}[ ][0-9]{10}$"))
     ])
   });
+  
 // mention suggestions for password and phno
-  constructor(private router: Router, private signUpService: SignupService) {
-    this.signUpData = {
+  constructor(private router: Router, private userService: UserService) {
+    this.userData = {
       firstName: "",
       middleName: "",
       lastName: "",
@@ -67,14 +68,14 @@ export class SignupComponent implements OnInit {
   }
 
   continue() {
-    this.signUpData.emailId = this.signUpForm.value.emailId;
-    this.signUpData.firstName = this.signUpForm.value.firstName;
-    this.signUpData.middleName = this.signUpForm.value.middleName;
-    this.signUpData.lastName = this.signUpForm.value.lastName;
-    this.signUpData.username = this.signUpForm.value.username;
-    this.signUpData.password = this.signUpForm.value.passwords.password;
-    this.signUpData.mobileNumber = this.signUpForm.value.mobileNumber;
-    this.signUpService.signup(this.signUpData).then(data => {
+    this.userData.emailId = this.signUpForm.value.emailId;
+    this.userData.firstName = this.signUpForm.value.firstName;
+    this.userData.middleName = this.signUpForm.value.middleName;
+    this.userData.lastName = this.signUpForm.value.lastName;
+    this.userData.username = this.signUpForm.value.username;
+    this.userData.password = this.signUpForm.value.passwords.password;
+    this.userData.mobileNumber = this.signUpForm.value.mobileNumber;
+    this.userService.postUser(this.userData).then(data => {
       if (data.id) this.router.navigateByUrl("/login");
     })
       .catch(err => {

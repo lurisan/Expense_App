@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserDataService } from '../services/user-data.service';
+import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 
@@ -17,7 +17,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 })
 export class LogoutComponent implements OnInit {
 
-  constructor(private router: Router, private userDataService: UserDataService) { }
+  constructor(private router: Router, private userService: UserService) { }
 
   ngOnInit() {
   }
@@ -25,7 +25,7 @@ export class LogoutComponent implements OnInit {
   btnClicked(type: string) {
     if (type === 'yes') {
       this.router.navigateByUrl('/login')
-      this.userDataService.setUserData(null);
+      this.userService.setUserData(null);
     }
     else
       this.router.navigateByUrl('/expense-app/home')

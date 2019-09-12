@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { UserDataService } from '../services/user-data.service';
-import { User } from '../models/user';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,11 +8,9 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
 
-  private user: User;
-  constructor(private userDataService: UserDataService, private router: Router) { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
-    this.user = this.userDataService.getUserData()
   }
   openNav() {
     document.getElementById("mySidenav").style.width = "250px";

@@ -1,9 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import { AuthenticationService } from "../services/authentication.service";
 import { Signin } from "../models/signin";
 import { trigger, state, style, transition, animate } from "@angular/animations";
-import { UserDataService } from "../services/user-data.service";
+import { UserService } from "../services/user.service";
+import { User } from '../models/user';
 
 @Component({
   selector: "app-login",
@@ -22,14 +22,11 @@ export class LoginComponent implements OnInit {
   private message: string = "Expense App Login";
   private wrong: string = undefined;
 
-  constructor(
-    private router: Router,
-    private authenticationService: AuthenticationService,
-    private userDataService: UserDataService
-  ) { }
+  constructor(private router: Router, private userService: UserService) {
+    this.signin = new Signin();
+  }
 
   ngOnInit() {
-    this.signin = new Signin();
   }
 
   submit() {
@@ -42,14 +39,14 @@ export class LoginComponent implements OnInit {
       this.message = "Enter Password";
     }
     else
-      this.authenticationService.authenticate().subscribe(querySnapshot => {
+      this.userService.getUser().subscribe(querySnapshot => {
         for (let i = 0; i < querySnapshot.docs.length; i++) {
           this.wrong = "wrong"
-          let element = querySnapshot.docs[i]
-          let data = element.data();
+          //@ts-ignore
+          let data: User = querySnapshot.docs[i].data()
           if (data.username === this.signin.username) {
             if (data.password === this.signin.password) {
-              this.userDataService.setUserData(data);
+              this.userService.setUserData(data);
               this.router.navigateByUrl("/expense-app/home");
             } else {
               this.wrong = "wrong";

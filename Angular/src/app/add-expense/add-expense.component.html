@@ -1,3 +1,40 @@
-<p>
-  add-expense works!
-</p>
+<div class="box">
+  <div class="table-editable">
+    <table class="table table-bordered table-striped text-center" align="center"
+      style="background-color:white; width:50%; margin-top: 5%;">
+      <tr>
+        <th class="text-center">Date</th>
+        <th class="text-center">Expenses</th>
+        <th class="text-center">Total</th>
+        <th class="text-center">Remove</th>
+      </tr>
+      <tr *ngFor="let dailyExpense of dailyExpenseSheet; let i=index">
+        <td>
+          <input type="date" [(ngModel)]="dailyExpense.date" disabled>
+        </td>
+        <td>
+          <label (click)="expenseFlag[i]=true">{{dailyExpense.expenseArray.join('+')}}</label>
+          <ng-container *ngIf="expenseFlag[i]">
+            <ng-container *ngFor="let expenseArr of dailyExpense.expenseArray; let j=index">
+              <input type="text" [(ngModel)]="expenseArr" (blur)="addToArray(i,j, expenseArr)"
+                (focus)="fieldName='Save'">
+            </ng-container>
+            <button (click)="add(i,fieldName)">{{fieldName}} Field</button>
+            <button (click)="remove(i,j,'Remove Field')">Remove Field</button>
+          </ng-container>
+        </td>
+        <td>
+          <label>
+            {{dailyExpense.total}}
+          </label>
+        </td>
+        <td>
+          <span class="table-remove">
+            <button type="button" class="btn-danger" (click)="remove(i)">Remove</button>
+          </span>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <button class="btn-success button" (click)="add(null,'Add Expense');saveExpense()">Add Expense</button>
+</div>

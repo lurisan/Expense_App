@@ -1,8 +1,8 @@
 import { Component, OnInit } from "@angular/core";
-import { UserDataService } from "../services/user-data.service";
 import { trigger, state, style, transition, animate } from "@angular/animations";
 import { User } from '../models/user';
 import { Router } from '@angular/router';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: "app-profile",
@@ -19,16 +19,10 @@ import { Router } from '@angular/router';
 
 export class ProfileComponent implements OnInit {
   private userData: User;
-  constructor(private userDataService: UserDataService, private router: Router) { }
+  constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit() {
-    this.userDataService.userDataObservable.subscribe(user => {
-      this.userData = user;
-      console.log(this.userData);
-    });
-  }
-
-  logout() {
-    this.router.navigateByUrl('/login')
+    this.userData = this.userService.getUserData();
+    console.log(this.userData);
   }
 }

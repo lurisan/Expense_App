@@ -1,0 +1,166 @@
+[
+    {
+        username: "Ritika",
+        expenses: [
+            {
+                year: 2010,
+                yearlyExpense: [
+                    {
+                        month: 1,
+                        monthlyExpense: [
+                            {
+                                day: 1,
+                                dayExpenses: [1000, 1000],
+                                dayTotal: 2000
+                            },
+                            {
+                                day: 2,
+                                dayExpenses: [1000, 1000],
+                                dayTotal: 2000
+                            }
+                        ],
+                        monthlyTotal: 4000
+                    },
+                    {
+                        month: 2,
+                        monthlyExpense: [
+                            {
+                                day: 1,
+                                dayExpenses: [1000, 1000],
+                                dayTotal: 2000
+                            },
+                            {
+                                day: 2,
+                                dayExpenses: [1000, 1000],
+                                dayTotal: 2000
+                            }
+                        ],
+                        monthlyTotal: 4000
+                    },
+                ],
+                yearlyTotal: 8000
+            },
+            {
+                year: 2011,
+                yearlyExpense: [
+                    {
+                        month: 1,
+                        monthlyExpense: [
+                            {
+                                day: 1,
+                                dayExpenses: [1000, 1000],
+                                dayTotal: 2000
+                            },
+                            {
+                                day: 2,
+                                dayExpenses: [1000, 1000],
+                                dayTotal: 2000
+                            }
+                        ],
+                        monthlyTotal: 4000
+                    },
+                    {
+                        month: 2,
+                        monthlyExpense: [
+                            {
+                                day: 1,
+                                dayExpenses: [1000, 1000],
+                                dayTotal: 2000
+                            },
+                            {
+                                day: 2,
+                                dayExpenses: [1000, 1000],
+                                dayTotal: 2000
+                            }
+                        ],
+                        monthlyTotal: 4000
+                    },
+                ],
+                yearlyTotal: 8000
+            }
+        ],
+        total: 16000
+    },
+    {
+        username: "Nasirul",
+        expenses: [
+            {
+                year: 2010,
+                yearlyExpense: [
+                    {
+                        month: 1,
+                        monthlyExpense: [
+                            {
+                                day: 1,
+                                dayExpenses: [1000, 1000],
+                                dayTotal: 2000
+                            },
+                            {
+                                day: 2,
+                                dayExpenses: [1000, 1000],
+                                dayTotal: 2000
+                            }
+                        ],
+                        monthlyTotal: 4000
+                    },
+                    {
+                        month: 2,
+                        monthlyExpense: [
+                            {
+                                day: 1,
+                                dayExpenses: [1000, 1000],
+                                dayTotal: 2000
+                            },
+                            {
+                                day: 2,
+                                dayExpenses: [1000, 1000],
+                                dayTotal: 2000
+                            }
+                        ],
+                        monthlyTotal: 4000
+                    },
+                ],
+                yearlyTotal: 8000
+            },
+            {
+                year: 2011,
+                yearlyExpense: [
+                    {
+                        month: 1,
+                        monthlyExpense: [
+                            {
+                                day: 1,
+                                dayExpenses: [1000, 1000],
+                                dayTotal: 2000
+                            },
+                            {
+                                day: 2,
+                                dayExpenses: [1000, 1000],
+                                dayTotal: 2000
+                            }
+                        ],
+                        monthlyTotal: 4000
+                    },
+                    {
+                        month: 2,
+                        monthlyExpense: [
+                            {
+                                day: 1,
+                                dayExpenses: [1000, 1000],
+                                dayTotal: 2000
+                            },
+                            {
+                                day: 2,
+                                dayExpenses: [1000, 1000],
+                                dayTotal: 2000
+                            }
+                        ],
+                        monthlyTotal: 4000
+                    },
+                ],
+                yearlyTotal: 8000
+            }
+        ],
+        total: 16000
+    },
+]
