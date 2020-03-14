@@ -384,7 +384,7 @@ var AuthGuard = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "table,\r\nth,\r\ntd {\r\n  border: 1px solid black;\r\n  border-collapse: collapse;\r\n}\r\nth,\r\ntd {\r\n  text-align: center;\r\n}\r\n/* Chrome, Safari, Edge, Opera */\r\ninput::-webkit-outer-spin-button,\r\ninput::-webkit-inner-spin-button {\r\n  -webkit-appearance: none;\r\n  margin: 0;\r\n}\r\n/* Firefox */\r\ninput[type=\"number\"] {\r\n  -moz-appearance: textfield;\r\n}\r\ninput,\r\ninput:hover,\r\ninput:active {\r\n  border: 0;\r\n  outline: none;\r\n  outline-offset: 0;\r\n}\r\ninput:focus{\r\n  border: 1px solid green;\r\n  outline: none;\r\n  outline-offset: 0;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvZXhwZW5zZS1zaGVldC9leHBlbnNlLXNoZWV0LmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7OztFQUdFLHVCQUF1QjtFQUN2Qix5QkFBeUI7QUFDM0I7QUFDQTs7RUFFRSxrQkFBa0I7QUFDcEI7QUFFQSxnQ0FBZ0M7QUFDaEM7O0VBRUUsd0JBQXdCO0VBQ3hCLFNBQVM7QUFDWDtBQUVBLFlBQVk7QUFDWjtFQUNFLDBCQUEwQjtBQUM1QjtBQUVBOzs7RUFHRSxTQUFTO0VBQ1QsYUFBYTtFQUNiLGlCQUFpQjtBQUNuQjtBQUVBO0VBQ0UsdUJBQXVCO0VBQ3ZCLGFBQWE7RUFDYixpQkFBaUI7QUFDbkIiLCJmaWxlIjoic3JjL2FwcC9leHBlbnNlLXNoZWV0L2V4cGVuc2Utc2hlZXQuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbInRhYmxlLFxyXG50aCxcclxudGQge1xyXG4gIGJvcmRlcjogMXB4IHNvbGlkIGJsYWNrO1xyXG4gIGJvcmRlci1jb2xsYXBzZTogY29sbGFwc2U7XHJcbn1cclxudGgsXHJcbnRkIHtcclxuICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbn1cclxuXHJcbi8qIENocm9tZSwgU2FmYXJpLCBFZGdlLCBPcGVyYSAqL1xyXG5pbnB1dDo6LXdlYmtpdC1vdXRlci1zcGluLWJ1dHRvbixcclxuaW5wdXQ6Oi13ZWJraXQtaW5uZXItc3Bpbi1idXR0b24ge1xyXG4gIC13ZWJraXQtYXBwZWFyYW5jZTogbm9uZTtcclxuICBtYXJnaW46IDA7XHJcbn1cclxuXHJcbi8qIEZpcmVmb3ggKi9cclxuaW5wdXRbdHlwZT1cIm51bWJlclwiXSB7XHJcbiAgLW1vei1hcHBlYXJhbmNlOiB0ZXh0ZmllbGQ7XHJcbn1cclxuXHJcbmlucHV0LFxyXG5pbnB1dDpob3ZlcixcclxuaW5wdXQ6YWN0aXZlIHtcclxuICBib3JkZXI6IDA7XHJcbiAgb3V0bGluZTogbm9uZTtcclxuICBvdXRsaW5lLW9mZnNldDogMDtcclxufVxyXG5cclxuaW5wdXQ6Zm9jdXN7XHJcbiAgYm9yZGVyOiAxcHggc29saWQgZ3JlZW47XHJcbiAgb3V0bGluZTogbm9uZTtcclxuICBvdXRsaW5lLW9mZnNldDogMDtcclxufSJdfQ== */"
+module.exports = "table,\r\nth,\r\ntd {\r\n  border: 1px solid black;\r\n  border-collapse: collapse;\r\n}\r\nth,\r\ntd {\r\n  text-align: center;\r\n}\r\n/* Chrome, Safari, Edge, Opera */\r\ninput::-webkit-outer-spin-button,\r\ninput::-webkit-inner-spin-button {\r\n  -webkit-appearance: none;\r\n  margin: 0;\r\n}\r\n/* Firefox */\r\ninput[type=\"number\"] {\r\n  -moz-appearance: textfield;\r\n  width: 50px;\r\n}\r\ninput,\r\ninput:hover,\r\ninput:active {\r\n  border: 0;\r\n  outline: none;\r\n  outline-offset: 0;\r\n}\r\ninput:focus {\r\n  border: 1px solid green;\r\n  outline: none;\r\n  outline-offset: 0;\r\n}\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvZXhwZW5zZS1zaGVldC9leHBlbnNlLXNoZWV0LmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7OztFQUdFLHVCQUF1QjtFQUN2Qix5QkFBeUI7QUFDM0I7QUFDQTs7RUFFRSxrQkFBa0I7QUFDcEI7QUFFQSxnQ0FBZ0M7QUFDaEM7O0VBRUUsd0JBQXdCO0VBQ3hCLFNBQVM7QUFDWDtBQUVBLFlBQVk7QUFDWjtFQUNFLDBCQUEwQjtFQUMxQixXQUFXO0FBQ2I7QUFFQTs7O0VBR0UsU0FBUztFQUNULGFBQWE7RUFDYixpQkFBaUI7QUFDbkI7QUFFQTtFQUNFLHVCQUF1QjtFQUN2QixhQUFhO0VBQ2IsaUJBQWlCO0FBQ25CIiwiZmlsZSI6InNyYy9hcHAvZXhwZW5zZS1zaGVldC9leHBlbnNlLXNoZWV0LmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyJ0YWJsZSxcclxudGgsXHJcbnRkIHtcclxuICBib3JkZXI6IDFweCBzb2xpZCBibGFjaztcclxuICBib3JkZXItY29sbGFwc2U6IGNvbGxhcHNlO1xyXG59XHJcbnRoLFxyXG50ZCB7XHJcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG59XHJcblxyXG4vKiBDaHJvbWUsIFNhZmFyaSwgRWRnZSwgT3BlcmEgKi9cclxuaW5wdXQ6Oi13ZWJraXQtb3V0ZXItc3Bpbi1idXR0b24sXHJcbmlucHV0Ojotd2Via2l0LWlubmVyLXNwaW4tYnV0dG9uIHtcclxuICAtd2Via2l0LWFwcGVhcmFuY2U6IG5vbmU7XHJcbiAgbWFyZ2luOiAwO1xyXG59XHJcblxyXG4vKiBGaXJlZm94ICovXHJcbmlucHV0W3R5cGU9XCJudW1iZXJcIl0ge1xyXG4gIC1tb3otYXBwZWFyYW5jZTogdGV4dGZpZWxkO1xyXG4gIHdpZHRoOiA1MHB4O1xyXG59XHJcblxyXG5pbnB1dCxcclxuaW5wdXQ6aG92ZXIsXHJcbmlucHV0OmFjdGl2ZSB7XHJcbiAgYm9yZGVyOiAwO1xyXG4gIG91dGxpbmU6IG5vbmU7XHJcbiAgb3V0bGluZS1vZmZzZXQ6IDA7XHJcbn1cclxuXHJcbmlucHV0OmZvY3VzIHtcclxuICBib3JkZXI6IDFweCBzb2xpZCBncmVlbjtcclxuICBvdXRsaW5lOiBub25lO1xyXG4gIG91dGxpbmUtb2Zmc2V0OiAwO1xyXG59XHJcbiJdfQ== */"
 
 /***/ }),
 
@@ -395,7 +395,7 @@ module.exports = "table,\r\nth,\r\ntd {\r\n  border: 1px solid black;\r\n  borde
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div>\n  <div class=\"row\">\n    <div class=\"col-lg-10\">\n      <table class=\"table\">\n        <tr>\n          <th>\n            Day\n          </th>\n          <th [attr.colspan]=\"thnum\">\n            Data\n          </th>\n          <th>\n            Total\n          </th>\n        </tr>\n        <tr>\n          <td>\n            01/03/2020\n          </td>\n          <ng-container *ngFor=\"let data of dailyExp; let i=index; trackBy:trackActiveBox\">\n            <td class=\"table-hover\" (click)=\"enableEdit(i)\" placement=\"bottom\" ngbTooltip=\"Double click to edit\">\n              <input *ngIf=\"!edit[i]\" type=\"number\" name=\"exp{{i}}\" id=\"exp{{i}}\" value=\"{{data}}\" style=\"width:50px;\"\n                (blur)=\"updateSum()\" [(ngModel)]=\"dailyExp[i]\">\n              <div [hidden]=\"!edit[i]\">{{data | currency:'INR'}}</div>\n            </td>\n          </ng-container>\n          <td (click)=\"addCell()\" style=\"cursor: grab;\">\n            +\n          </td>\n          <td>\n            {{total | currency:'INR'}}\n          </td>\n        </tr>\n      </table>\n    </div>\n  </div>\n</div>"
+module.exports = "<div class=\"container\">\n  <div class=\"row\">\n    <div class=\"col-lg-10\">\n      <table class=\"table\">\n        <tr>\n          <th>\n            Day\n          </th>\n          <th [attr.colspan]=\"thnum\" *ngIf=\"editMode\">\n            Expenses\n          </th>\n          <th>\n            Add Expense\n          </th>\n          <th>\n            Total\n          </th>\n          <th>\n            Action\n          </th>\n        </tr>\n        <tr>\n          <td>\n            01/03/2020\n          </td>\n          <ng-container *ngIf=\" editMode\">\n            <ng-container *ngFor=\"let data of dailyExp; let i=index; trackBy:trackActiveBox\">\n              <td class=\"table-hover\" (click)=\"enableEdit(i)\">\n                <input *ngIf=\"!edit[i]\" type=\"number\" name=\"exp{{i}}\" id=\"exp{{i}}\" value=\"{{data}}\"\n                  (blur)=\"updateSum()\" [(ngModel)]=\"dailyExp[i]\">\n                <div [hidden]=\"!edit[i]\">{{data | currency:'INR'}}</div>\n              </td>\n            </ng-container>\n          </ng-container>\n\n          <ng-container *ngIf=\"!editMode\">\n            <td class=\"table-hover\" *ngIf=\"add\">\n              <input type=\"number\" name=\"non-edit-add\" id=\"non-edit-add\" value=\"0\" (blur)=\"updateSum()\"\n                [(ngModel)]=\"singleValAdd\">\n            </td>\n          </ng-container>\n          <td (click)=\"addCell()\" *ngIf=\"(!add && !editMode) || editMode\">\n            <button class=btn-success>Add</button>\n          </td>\n          <td>\n            {{total | currency:'INR'}}\n          </td>\n          <td (click)=\"enableEditMode(true)\" *ngIf=\"!editMode\">\n            <button class=btn-success>Edit</button>\n          </td>\n          <td (click)=\"enableEditMode(false)\" *ngIf=\"editMode\">\n            <button class=btn-success>Save</button>\n          </td>\n        </tr>\n      </table>\n    </div>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -419,23 +419,33 @@ var ExpenseSheetComponent = /** @class */ (function () {
         this.thnum = this.dailyExp.length + 1;
         this.total = 0;
         this.edit = [];
+        this.editMode = false;
+        this.add = false;
+        this.singleValAdd = 0;
     }
     ExpenseSheetComponent.prototype.ngOnInit = function () {
         this.updateSum();
         this.edit = this.dailyExp.map(function (val) { return true; });
     };
     ExpenseSheetComponent.prototype.updateSum = function () {
+        this.dailyExp.push(this.singleValAdd);
+        this.singleValAdd = 0;
+        this.add = false;
         this.dailyExp = this.dailyExp.filter(function (val) { return val !== 0 && val; });
-        this.thnum = this.dailyExp.length + 1;
-        if (this.thnum - 1) {
+        this.thnum = (this.editMode) ? this.dailyExp.length : 2;
+        if (this.thnum - 1)
             this.total = this.dailyExp.reduce(function (a, b) { return a + b; });
-        }
         this.edit = this.dailyExp.map(function (val) { return true; });
     };
     ExpenseSheetComponent.prototype.addCell = function () {
         if (this.dailyExp[this.dailyExp.length - 1] !== 0) {
             this.dailyExp.push(0);
-            this.thnum = this.dailyExp.length + 1;
+            if (this.editMode)
+                this.thnum = this.dailyExp.length;
+            else {
+                this.thnum = this.thnum + 1;
+                this.add = true;
+            }
             this.edit = this.dailyExp.map(function (val) { return true; });
         }
     };
@@ -444,6 +454,11 @@ var ExpenseSheetComponent = /** @class */ (function () {
     };
     ExpenseSheetComponent.prototype.enableEdit = function (index) {
         this.edit[index] = false;
+    };
+    ExpenseSheetComponent.prototype.enableEditMode = function (state) {
+        this.editMode = state;
+        if (state)
+            this.thnum = this.dailyExp.length;
     };
     ExpenseSheetComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({

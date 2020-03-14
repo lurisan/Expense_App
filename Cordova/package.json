@@ -1,7 +1,7 @@
 {
   "name": "expense-app-cordova",
   "displayName": "expense-app-cordova",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Expense App",
   "main": "index.js",
   "scripts": {
@@ -10,8 +10,6 @@
   "keywords": [
     "ecosystem:cordova"
   ],
-  "author": "Nasirul",
-  "license": "MIT License",
   "dependencies": {
     "cordova-android": "^8.0.0",
     "phonegap-plugin-contentsync": "^1.4.2"
@@ -27,5 +25,7 @@
     "platforms": [
       "android"
     ]
-  }
+  },
+  "author": "Md. Nasirul Haque",
+  "license": "MIT License"
 }
