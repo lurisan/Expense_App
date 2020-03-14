@@ -62,7 +62,7 @@ export class SignupComponent implements OnInit {
   ngOnInit() { }
 
   passwordConfirming(passwords: FormGroup) {
-    if (passwords.get("password").value === passwords.get("confirmPassword").value && (passwords.get("password").value !== "" && passwords.get("confirmPassword").value !== ""))
+    if (passwords.get("password").value !== "" && (passwords.get("password").value === passwords.get("confirmPassword").value))
       return null;
     return { mismatch: true };
   }

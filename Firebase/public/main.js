@@ -23,156 +23,6 @@ webpackEmptyAsyncContext.id = "./src/$$_lazy_route_resource lazy recursive";
 
 /***/ }),
 
-/***/ "./src/app/add-expense/add-expense.component.css":
-/*!*******************************************************!*\
-  !*** ./src/app/add-expense/add-expense.component.css ***!
-  \*******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = ".box {\r\n  text-align: center;\r\n}\r\n\r\n@media screen and (max-width: 324px) {\r\n    .button {\r\n        margin-left: 40%;\r\n      }\r\n}\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYWRkLWV4cGVuc2UvYWRkLWV4cGVuc2UuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLGtCQUFrQjtBQUNwQjs7QUFFQTtJQUNJO1FBQ0ksZ0JBQWdCO01BQ2xCO0FBQ04iLCJmaWxlIjoic3JjL2FwcC9hZGQtZXhwZW5zZS9hZGQtZXhwZW5zZS5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmJveCB7XHJcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG59XHJcblxyXG5AbWVkaWEgc2NyZWVuIGFuZCAobWF4LXdpZHRoOiAzMjRweCkge1xyXG4gICAgLmJ1dHRvbiB7XHJcbiAgICAgICAgbWFyZ2luLWxlZnQ6IDQwJTtcclxuICAgICAgfVxyXG59XHJcbiJdfQ== */"
-
-/***/ }),
-
-/***/ "./src/app/add-expense/add-expense.component.html":
-/*!********************************************************!*\
-  !*** ./src/app/add-expense/add-expense.component.html ***!
-  \********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<div class=\"box\">\n  <div class=\"table-editable\">\n    <table class=\"table table-bordered table-striped text-center\" align=\"center\"\n      style=\"background-color:white; width:50%; margin-top: 5%;\">\n      <tr>\n        <th class=\"text-center\">Date</th>\n        <th class=\"text-center\">Expenses</th>\n        <th class=\"text-center\">Total</th>\n        <th class=\"text-center\">Remove</th>\n      </tr>\n      <tr *ngFor=\"let dailyExpense of dailyExpenseSheet; let i=index\">\n        <td>\n          <input type=\"date\" [(ngModel)]=\"dailyExpense.date\" disabled>\n        </td>\n        <td>\n          <label (click)=\"expenseFlag[i]=true\">{{dailyExpense.expenseArray.join('+')}}</label>\n          <ng-container *ngIf=\"expenseFlag[i]\">\n            <ng-container *ngFor=\"let expenseArr of dailyExpense.expenseArray; let j=index\">\n              <input type=\"text\" [(ngModel)]=\"expenseArr\" (blur)=\"addToArray(i,j, expenseArr)\"\n                (focus)=\"fieldName='Save'\">\n            </ng-container>\n            <button (click)=\"add(i,fieldName)\">{{fieldName}} Field</button>\n            <button (click)=\"remove(i,j,'Remove Field')\">Remove Field</button>\n          </ng-container>\n        </td>\n        <td>\n          <label>\n            {{dailyExpense.total}}\n          </label>\n        </td>\n        <td>\n          <span class=\"table-remove\">\n            <button type=\"button\" class=\"btn-danger\" (click)=\"remove(i)\">Remove</button>\n          </span>\n        </td>\n      </tr>\n    </table>\n  </div>\n  <button class=\"btn-success button\" (click)=\"add(null,'Add Expense');saveExpense()\">Add Expense</button>\n</div>"
-
-/***/ }),
-
-/***/ "./src/app/add-expense/add-expense.component.ts":
-/*!******************************************************!*\
-  !*** ./src/app/add-expense/add-expense.component.ts ***!
-  \******************************************************/
-/*! exports provided: AddExpenseComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AddExpenseComponent", function() { return AddExpenseComponent; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _services_expenses_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../services/expenses.service */ "./src/app/services/expenses.service.ts");
-/* harmony import */ var _models_expense__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../models/expense */ "./src/app/models/expense.ts");
-/* harmony import */ var _services_user_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../services/user.service */ "./src/app/services/user.service.ts");
-
-
-
-
-
-var AddExpenseComponent = /** @class */ (function () {
-    function AddExpenseComponent(userService, expensesService) {
-        this.userService = userService;
-        this.expensesService = expensesService;
-        this.expenseFlag = [false, false, false, false];
-        this.fieldName = "Add";
-        this.dailyExpenseSheet = [
-            { date: "", expenseArray: [0], total: 0 }
-        ];
-        this.expenseSheet = {
-            username: "",
-            expenses: [],
-            total: 0
-        };
-        this.userData = this.userService.getUserData();
-        this.dailyExpenseSheet[0].date = this.getCurrentDate();
-    }
-    AddExpenseComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.expensesService.getExpenseDetails().subscribe(function (querySnapshot) {
-            for (var i = 0; i < querySnapshot.docs.length; i++) {
-                var data = querySnapshot.docs[i].data();
-                if (_this.userData)
-                    if (_this.userData.username === data.username) {
-                        _this.expenseSheet = data;
-                        break;
-                    }
-            }
-        });
-    };
-    AddExpenseComponent.prototype.remove = function (i, j, name) {
-        if (name === 'Remove Field') {
-            this.dailyExpenseSheet[i].expenseArray.splice(j, 1);
-            this.fieldName = "Save";
-        }
-        else {
-            this.dailyExpenseSheet.splice(i, 1);
-        }
-    };
-    AddExpenseComponent.prototype.add = function (i, fieldName) {
-        if (fieldName === "Add") {
-            this.dailyExpenseSheet[i].expenseArray.push(0);
-            this.fieldName = "Save";
-        }
-        else if (fieldName === "Save") {
-            this.expenseFlag[i] = false;
-            this.dailyExpenseSheet[i].total = this.dailyExpenseSheet[i].expenseArray.reduce(function (acc, cur) { return acc + cur; }, 0);
-            this.fieldName = "Add";
-        }
-        else if (fieldName === 'Add Expense') {
-            var dailyExpense = { date: this.getdate(this.dailyExpenseSheet[this.dailyExpenseSheet.length - 1].date), expenseArray: [0], total: 0 };
-            this.dailyExpenseSheet.push(dailyExpense);
-        }
-    };
-    AddExpenseComponent.prototype.addToArray = function (i, j, value) {
-        this.dailyExpenseSheet[i].expenseArray[j] = parseFloat(value);
-    };
-    AddExpenseComponent.prototype.getdate = function (dateI) {
-        var date = new Date(dateI);
-        date.setDate(date.getDate() + 1);
-        return date.getFullYear() + '-' + (('0' + (date.getMonth() + 1)).slice(-2)) + '-' + ('0' + date.getDate()).slice(-2);
-    };
-    AddExpenseComponent.prototype.saveExpense = function () {
-        this.expenseSheet.username = this.userData.username;
-        var monthlyExpense = new _models_expense__WEBPACK_IMPORTED_MODULE_3__["MonthlyExpense"]();
-        var yearlyExpense = new _models_expense__WEBPACK_IMPORTED_MODULE_3__["YearlyExpense"]();
-        this.dailyExpenseSheet.forEach(function (expense) {
-            var dailyExpense = new _models_expense__WEBPACK_IMPORTED_MODULE_3__["DailyExpense"]();
-            dailyExpense.day = expense.date.split('-')[2];
-            dailyExpense.dayExpenses = expense.expenseArray;
-            dailyExpense.dayTotal = expense.expenseArray.reduce(function (acc, cur) { return acc + cur; }, 0);
-            monthlyExpense.month = expense.date.split('-')[1];
-            monthlyExpense.monthlyExpense.push(dailyExpense);
-            monthlyExpense.monthTotal = monthlyExpense.monthTotal + dailyExpense.dayTotal;
-        });
-        yearlyExpense.year = this.dailyExpenseSheet[0].date.split('-')[0];
-        yearlyExpense.yearlyExpense.push(monthlyExpense);
-        yearlyExpense.yearTotal = yearlyExpense.yearTotal + monthlyExpense.monthTotal;
-        this.expenseSheet.expenses.push(yearlyExpense);
-        this.expensesService.postExpenseDetails(this.expenseSheet).then(function (data) {
-            if (data.id)
-                console.log("done");
-        }).catch(function (err) {
-            console.log(err);
-        });
-    };
-    AddExpenseComponent.prototype.getCurrentDate = function () {
-        var today = new Date();
-        var d = String(today.getDate()).padStart(2, '0');
-        var m = String(today.getMonth() + 1).padStart(2, '0');
-        var y = today.getFullYear();
-        return y + '-' + m + '-' + d;
-    };
-    AddExpenseComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'app-add-expense',
-            template: __webpack_require__(/*! ./add-expense.component.html */ "./src/app/add-expense/add-expense.component.html"),
-            styles: [__webpack_require__(/*! ./add-expense.component.css */ "./src/app/add-expense/add-expense.component.css")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_user_service__WEBPACK_IMPORTED_MODULE_4__["UserService"], _services_expenses_service__WEBPACK_IMPORTED_MODULE_2__["ExpensesService"]])
-    ], AddExpenseComponent);
-    return AddExpenseComponent;
-}());
-
-
-
-/***/ }),
-
 /***/ "./src/app/app-routing.module.ts":
 /*!***************************************!*\
   !*** ./src/app/app-routing.module.ts ***!
@@ -188,16 +38,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _login_login_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./login/login.component */ "./src/app/login/login.component.ts");
 /* harmony import */ var _home_home_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./home/home.component */ "./src/app/home/home.component.ts");
-/* harmony import */ var _add_expense_add_expense_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./add-expense/add-expense.component */ "./src/app/add-expense/add-expense.component.ts");
-/* harmony import */ var _edit_expense_edit_expense_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./edit-expense/edit-expense.component */ "./src/app/edit-expense/edit-expense.component.ts");
-/* harmony import */ var _logout_logout_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./logout/logout.component */ "./src/app/logout/logout.component.ts");
-/* harmony import */ var _profile_profile_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./profile/profile.component */ "./src/app/profile/profile.component.ts");
-/* harmony import */ var _signup_signup_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./signup/signup.component */ "./src/app/signup/signup.component.ts");
-/* harmony import */ var _auth_auth_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./auth/auth.service */ "./src/app/auth/auth.service.ts");
-/* harmony import */ var _layout_layout_layout_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./layout/layout/layout.component */ "./src/app/layout/layout/layout.component.ts");
-/* harmony import */ var _delete_expense_delete_expense_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./delete-expense/delete-expense.component */ "./src/app/delete-expense/delete-expense.component.ts");
-
-
+/* harmony import */ var _expense_sheet_expense_sheet_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./expense-sheet/expense-sheet.component */ "./src/app/expense-sheet/expense-sheet.component.ts");
+/* harmony import */ var _logout_logout_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./logout/logout.component */ "./src/app/logout/logout.component.ts");
+/* harmony import */ var _profile_profile_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./profile/profile.component */ "./src/app/profile/profile.component.ts");
+/* harmony import */ var _signup_signup_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./signup/signup.component */ "./src/app/signup/signup.component.ts");
+/* harmony import */ var _auth_auth_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./auth/auth.service */ "./src/app/auth/auth.service.ts");
+/* harmony import */ var _layout_layout_layout_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./layout/layout/layout.component */ "./src/app/layout/layout/layout.component.ts");
 
 
 
@@ -220,8 +66,8 @@ var routes = [{
     },
     {
         path: 'expense-app',
-        component: _layout_layout_layout_component__WEBPACK_IMPORTED_MODULE_11__["LayoutComponent"],
-        canActivate: [_auth_auth_service__WEBPACK_IMPORTED_MODULE_10__["AuthGuard"]],
+        component: _layout_layout_layout_component__WEBPACK_IMPORTED_MODULE_10__["LayoutComponent"],
+        canActivate: [_auth_auth_service__WEBPACK_IMPORTED_MODULE_9__["AuthGuard"]],
         children: [{
                 path: '',
                 pathMatch: 'full',
@@ -232,24 +78,16 @@ var routes = [{
                 component: _home_home_component__WEBPACK_IMPORTED_MODULE_4__["HomeComponent"]
             },
             {
-                path: 'addExpense',
-                component: _add_expense_add_expense_component__WEBPACK_IMPORTED_MODULE_5__["AddExpenseComponent"]
-            },
-            {
-                path: 'editExpense',
-                component: _edit_expense_edit_expense_component__WEBPACK_IMPORTED_MODULE_6__["EditExpenseComponent"]
-            },
-            {
                 path: 'profile',
-                component: _profile_profile_component__WEBPACK_IMPORTED_MODULE_8__["ProfileComponent"]
+                component: _profile_profile_component__WEBPACK_IMPORTED_MODULE_7__["ProfileComponent"]
             },
             {
-                path: 'deleteExpense',
-                component: _delete_expense_delete_expense_component__WEBPACK_IMPORTED_MODULE_12__["DeleteExpenseComponent"]
+                path: 'expenseSheet',
+                component: _expense_sheet_expense_sheet_component__WEBPACK_IMPORTED_MODULE_5__["ExpenseSheetComponent"]
             },
             {
                 path: 'logout',
-                component: _logout_logout_component__WEBPACK_IMPORTED_MODULE_7__["LogoutComponent"]
+                component: _logout_logout_component__WEBPACK_IMPORTED_MODULE_6__["LogoutComponent"]
             },
             {
                 path: '**',
@@ -259,7 +97,7 @@ var routes = [{
     },
     {
         path: 'signup',
-        component: _signup_signup_component__WEBPACK_IMPORTED_MODULE_9__["SignupComponent"]
+        component: _signup_signup_component__WEBPACK_IMPORTED_MODULE_8__["SignupComponent"]
     },
     {
         path: '**',
@@ -432,20 +270,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
 /* harmony import */ var _login_login_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./login/login.component */ "./src/app/login/login.component.ts");
 /* harmony import */ var _home_home_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./home/home.component */ "./src/app/home/home.component.ts");
-/* harmony import */ var _add_expense_add_expense_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./add-expense/add-expense.component */ "./src/app/add-expense/add-expense.component.ts");
-/* harmony import */ var _edit_expense_edit_expense_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./edit-expense/edit-expense.component */ "./src/app/edit-expense/edit-expense.component.ts");
-/* harmony import */ var _logout_logout_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./logout/logout.component */ "./src/app/logout/logout.component.ts");
-/* harmony import */ var _signup_signup_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./signup/signup.component */ "./src/app/signup/signup.component.ts");
-/* harmony import */ var _profile_profile_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./profile/profile.component */ "./src/app/profile/profile.component.ts");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _angular_fire__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @angular/fire */ "./node_modules/@angular/fire/index.js");
-/* harmony import */ var _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @angular/fire/firestore */ "./node_modules/@angular/fire/firestore/index.js");
-/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! src/environments/environment */ "./src/environments/environment.ts");
-/* harmony import */ var _layout_layout_layout_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./layout/layout/layout.component */ "./src/app/layout/layout/layout.component.ts");
-/* harmony import */ var _header_header_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./header/header.component */ "./src/app/header/header.component.ts");
-/* harmony import */ var _delete_expense_delete_expense_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./delete-expense/delete-expense.component */ "./src/app/delete-expense/delete-expense.component.ts");
-
-
+/* harmony import */ var _logout_logout_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./logout/logout.component */ "./src/app/logout/logout.component.ts");
+/* harmony import */ var _signup_signup_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./signup/signup.component */ "./src/app/signup/signup.component.ts");
+/* harmony import */ var _profile_profile_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./profile/profile.component */ "./src/app/profile/profile.component.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _angular_fire__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/fire */ "./node_modules/@angular/fire/index.js");
+/* harmony import */ var _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @angular/fire/firestore */ "./node_modules/@angular/fire/firestore/index.js");
+/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! src/environments/environment */ "./src/environments/environment.ts");
+/* harmony import */ var _layout_layout_layout_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./layout/layout/layout.component */ "./src/app/layout/layout/layout.component.ts");
+/* harmony import */ var _header_header_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./header/header.component */ "./src/app/header/header.component.ts");
+/* harmony import */ var _expense_sheet_expense_sheet_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./expense-sheet/expense-sheet.component */ "./src/app/expense-sheet/expense-sheet.component.ts");
 
 
 
@@ -474,24 +308,22 @@ var AppModule = /** @class */ (function () {
                 _app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"],
                 _login_login_component__WEBPACK_IMPORTED_MODULE_7__["LoginComponent"],
                 _home_home_component__WEBPACK_IMPORTED_MODULE_8__["HomeComponent"],
-                _add_expense_add_expense_component__WEBPACK_IMPORTED_MODULE_9__["AddExpenseComponent"],
-                _edit_expense_edit_expense_component__WEBPACK_IMPORTED_MODULE_10__["EditExpenseComponent"],
-                _logout_logout_component__WEBPACK_IMPORTED_MODULE_11__["LogoutComponent"],
-                _signup_signup_component__WEBPACK_IMPORTED_MODULE_12__["SignupComponent"],
-                _profile_profile_component__WEBPACK_IMPORTED_MODULE_13__["ProfileComponent"],
-                _layout_layout_layout_component__WEBPACK_IMPORTED_MODULE_18__["LayoutComponent"],
-                _header_header_component__WEBPACK_IMPORTED_MODULE_19__["HeaderComponent"],
-                _delete_expense_delete_expense_component__WEBPACK_IMPORTED_MODULE_20__["DeleteExpenseComponent"]
+                _logout_logout_component__WEBPACK_IMPORTED_MODULE_9__["LogoutComponent"],
+                _signup_signup_component__WEBPACK_IMPORTED_MODULE_10__["SignupComponent"],
+                _profile_profile_component__WEBPACK_IMPORTED_MODULE_11__["ProfileComponent"],
+                _layout_layout_layout_component__WEBPACK_IMPORTED_MODULE_16__["LayoutComponent"],
+                _header_header_component__WEBPACK_IMPORTED_MODULE_17__["HeaderComponent"],
+                _expense_sheet_expense_sheet_component__WEBPACK_IMPORTED_MODULE_18__["ExpenseSheetComponent"]
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
                 _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_2__["BrowserAnimationsModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormsModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_4__["ReactiveFormsModule"],
-                _angular_common_http__WEBPACK_IMPORTED_MODULE_14__["HttpClientModule"],
+                _angular_common_http__WEBPACK_IMPORTED_MODULE_12__["HttpClientModule"],
                 _app_routing_module__WEBPACK_IMPORTED_MODULE_5__["AppRoutingModule"],
-                _angular_fire__WEBPACK_IMPORTED_MODULE_15__["AngularFireModule"].initializeApp(src_environments_environment__WEBPACK_IMPORTED_MODULE_17__["environment"].firebaseConfig),
-                _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_16__["AngularFirestoreModule"]
+                _angular_fire__WEBPACK_IMPORTED_MODULE_13__["AngularFireModule"].initializeApp(src_environments_environment__WEBPACK_IMPORTED_MODULE_15__["environment"].firebaseConfig),
+                _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_14__["AngularFirestoreModule"]
             ],
             providers: [],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"]]
@@ -545,112 +377,83 @@ var AuthGuard = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/delete-expense/delete-expense.component.css":
-/*!*************************************************************!*\
-  !*** ./src/app/delete-expense/delete-expense.component.css ***!
-  \*************************************************************/
+/***/ "./src/app/expense-sheet/expense-sheet.component.css":
+/*!***********************************************************!*\
+  !*** ./src/app/expense-sheet/expense-sheet.component.css ***!
+  \***********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2RlbGV0ZS1leHBlbnNlL2RlbGV0ZS1leHBlbnNlLmNvbXBvbmVudC5jc3MifQ== */"
+module.exports = "table,\r\nth,\r\ntd {\r\n  border: 1px solid black;\r\n  border-collapse: collapse;\r\n}\r\nth,\r\ntd {\r\n  text-align: center;\r\n}\r\n/* Chrome, Safari, Edge, Opera */\r\ninput::-webkit-outer-spin-button,\r\ninput::-webkit-inner-spin-button {\r\n  -webkit-appearance: none;\r\n  margin: 0;\r\n}\r\n/* Firefox */\r\ninput[type=\"number\"] {\r\n  -moz-appearance: textfield;\r\n}\r\ninput,\r\ninput:hover,\r\ninput:active {\r\n  border: 0;\r\n  outline: none;\r\n  outline-offset: 0;\r\n}\r\ninput:focus{\r\n  border: 1px solid green;\r\n  outline: none;\r\n  outline-offset: 0;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvZXhwZW5zZS1zaGVldC9leHBlbnNlLXNoZWV0LmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7OztFQUdFLHVCQUF1QjtFQUN2Qix5QkFBeUI7QUFDM0I7QUFDQTs7RUFFRSxrQkFBa0I7QUFDcEI7QUFFQSxnQ0FBZ0M7QUFDaEM7O0VBRUUsd0JBQXdCO0VBQ3hCLFNBQVM7QUFDWDtBQUVBLFlBQVk7QUFDWjtFQUNFLDBCQUEwQjtBQUM1QjtBQUVBOzs7RUFHRSxTQUFTO0VBQ1QsYUFBYTtFQUNiLGlCQUFpQjtBQUNuQjtBQUVBO0VBQ0UsdUJBQXVCO0VBQ3ZCLGFBQWE7RUFDYixpQkFBaUI7QUFDbkIiLCJmaWxlIjoic3JjL2FwcC9leHBlbnNlLXNoZWV0L2V4cGVuc2Utc2hlZXQuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbInRhYmxlLFxyXG50aCxcclxudGQge1xyXG4gIGJvcmRlcjogMXB4IHNvbGlkIGJsYWNrO1xyXG4gIGJvcmRlci1jb2xsYXBzZTogY29sbGFwc2U7XHJcbn1cclxudGgsXHJcbnRkIHtcclxuICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbn1cclxuXHJcbi8qIENocm9tZSwgU2FmYXJpLCBFZGdlLCBPcGVyYSAqL1xyXG5pbnB1dDo6LXdlYmtpdC1vdXRlci1zcGluLWJ1dHRvbixcclxuaW5wdXQ6Oi13ZWJraXQtaW5uZXItc3Bpbi1idXR0b24ge1xyXG4gIC13ZWJraXQtYXBwZWFyYW5jZTogbm9uZTtcclxuICBtYXJnaW46IDA7XHJcbn1cclxuXHJcbi8qIEZpcmVmb3ggKi9cclxuaW5wdXRbdHlwZT1cIm51bWJlclwiXSB7XHJcbiAgLW1vei1hcHBlYXJhbmNlOiB0ZXh0ZmllbGQ7XHJcbn1cclxuXHJcbmlucHV0LFxyXG5pbnB1dDpob3ZlcixcclxuaW5wdXQ6YWN0aXZlIHtcclxuICBib3JkZXI6IDA7XHJcbiAgb3V0bGluZTogbm9uZTtcclxuICBvdXRsaW5lLW9mZnNldDogMDtcclxufVxyXG5cclxuaW5wdXQ6Zm9jdXN7XHJcbiAgYm9yZGVyOiAxcHggc29saWQgZ3JlZW47XHJcbiAgb3V0bGluZTogbm9uZTtcclxuICBvdXRsaW5lLW9mZnNldDogMDtcclxufSJdfQ== */"
 
 /***/ }),
 
-/***/ "./src/app/delete-expense/delete-expense.component.html":
-/*!**************************************************************!*\
-  !*** ./src/app/delete-expense/delete-expense.component.html ***!
-  \**************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<p>\n  delete-expense works!\n</p>\n"
-
-/***/ }),
-
-/***/ "./src/app/delete-expense/delete-expense.component.ts":
+/***/ "./src/app/expense-sheet/expense-sheet.component.html":
 /*!************************************************************!*\
-  !*** ./src/app/delete-expense/delete-expense.component.ts ***!
+  !*** ./src/app/expense-sheet/expense-sheet.component.html ***!
   \************************************************************/
-/*! exports provided: DeleteExpenseComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DeleteExpenseComponent", function() { return DeleteExpenseComponent; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-
-
-var DeleteExpenseComponent = /** @class */ (function () {
-    function DeleteExpenseComponent() {
-    }
-    DeleteExpenseComponent.prototype.ngOnInit = function () {
-    };
-    DeleteExpenseComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'app-delete-expense',
-            template: __webpack_require__(/*! ./delete-expense.component.html */ "./src/app/delete-expense/delete-expense.component.html"),
-            styles: [__webpack_require__(/*! ./delete-expense.component.css */ "./src/app/delete-expense/delete-expense.component.css")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], DeleteExpenseComponent);
-    return DeleteExpenseComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/edit-expense/edit-expense.component.css":
-/*!*********************************************************!*\
-  !*** ./src/app/edit-expense/edit-expense.component.css ***!
-  \*********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2VkaXQtZXhwZW5zZS9lZGl0LWV4cGVuc2UuY29tcG9uZW50LmNzcyJ9 */"
+module.exports = "<div>\n  <div class=\"row\">\n    <div class=\"col-lg-10\">\n      <table class=\"table\">\n        <tr>\n          <th>\n            Day\n          </th>\n          <th [attr.colspan]=\"thnum\">\n            Data\n          </th>\n          <th>\n            Total\n          </th>\n        </tr>\n        <tr>\n          <td>\n            01/03/2020\n          </td>\n          <ng-container *ngFor=\"let data of dailyExp; let i=index; trackBy:trackActiveBox\">\n            <td class=\"table-hover\" (click)=\"enableEdit(i)\" placement=\"bottom\" ngbTooltip=\"Double click to edit\">\n              <input *ngIf=\"!edit[i]\" type=\"number\" name=\"exp{{i}}\" id=\"exp{{i}}\" value=\"{{data}}\" style=\"width:50px;\"\n                (blur)=\"updateSum()\" [(ngModel)]=\"dailyExp[i]\">\n              <div [hidden]=\"!edit[i]\">{{data | currency:'INR'}}</div>\n            </td>\n          </ng-container>\n          <td (click)=\"addCell()\" style=\"cursor: grab;\">\n            +\n          </td>\n          <td>\n            {{total | currency:'INR'}}\n          </td>\n        </tr>\n      </table>\n    </div>\n  </div>\n</div>"
 
 /***/ }),
 
-/***/ "./src/app/edit-expense/edit-expense.component.html":
+/***/ "./src/app/expense-sheet/expense-sheet.component.ts":
 /*!**********************************************************!*\
-  !*** ./src/app/edit-expense/edit-expense.component.html ***!
+  !*** ./src/app/expense-sheet/expense-sheet.component.ts ***!
   \**********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<p>\n  edit-expense works!\n</p>\n"
-
-/***/ }),
-
-/***/ "./src/app/edit-expense/edit-expense.component.ts":
-/*!********************************************************!*\
-  !*** ./src/app/edit-expense/edit-expense.component.ts ***!
-  \********************************************************/
-/*! exports provided: EditExpenseComponent */
+/*! exports provided: ExpenseSheetComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EditExpenseComponent", function() { return EditExpenseComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ExpenseSheetComponent", function() { return ExpenseSheetComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 
 
-var EditExpenseComponent = /** @class */ (function () {
-    function EditExpenseComponent() {
+var ExpenseSheetComponent = /** @class */ (function () {
+    function ExpenseSheetComponent() {
+        this.dailyExp = [1, 2, 3, 4, 5];
+        this.thnum = this.dailyExp.length + 1;
+        this.total = 0;
+        this.edit = [];
     }
-    EditExpenseComponent.prototype.ngOnInit = function () {
+    ExpenseSheetComponent.prototype.ngOnInit = function () {
+        this.updateSum();
+        this.edit = this.dailyExp.map(function (val) { return true; });
     };
-    EditExpenseComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    ExpenseSheetComponent.prototype.updateSum = function () {
+        this.dailyExp = this.dailyExp.filter(function (val) { return val !== 0 && val; });
+        this.thnum = this.dailyExp.length + 1;
+        if (this.thnum - 1) {
+            this.total = this.dailyExp.reduce(function (a, b) { return a + b; });
+        }
+        this.edit = this.dailyExp.map(function (val) { return true; });
+    };
+    ExpenseSheetComponent.prototype.addCell = function () {
+        if (this.dailyExp[this.dailyExp.length - 1] !== 0) {
+            this.dailyExp.push(0);
+            this.thnum = this.dailyExp.length + 1;
+            this.edit = this.dailyExp.map(function (val) { return true; });
+        }
+    };
+    ExpenseSheetComponent.prototype.trackActiveBox = function (index, item) {
+        return index;
+    };
+    ExpenseSheetComponent.prototype.enableEdit = function (index) {
+        this.edit[index] = false;
+    };
+    ExpenseSheetComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'app-edit-expense',
-            template: __webpack_require__(/*! ./edit-expense.component.html */ "./src/app/edit-expense/edit-expense.component.html"),
-            styles: [__webpack_require__(/*! ./edit-expense.component.css */ "./src/app/edit-expense/edit-expense.component.css")]
+            selector: 'app-expense-sheet',
+            template: __webpack_require__(/*! ./expense-sheet.component.html */ "./src/app/expense-sheet/expense-sheet.component.html"),
+            styles: [__webpack_require__(/*! ./expense-sheet.component.css */ "./src/app/expense-sheet/expense-sheet.component.css")]
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], EditExpenseComponent);
-    return EditExpenseComponent;
+    ], ExpenseSheetComponent);
+    return ExpenseSheetComponent;
 }());
 
 
@@ -675,7 +478,7 @@ module.exports = ".sidenav {\r\n  height: 100%;\r\n  width: 0;\r\n  position: fi
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-fluid\">\n  <div class=\"row\">\n    <div class=\"col-1 top\">\n      <div id=\"mySidenav\" class=\"sidenav\" [ngStyle]=\"{'width.%':width}\">\n        <a href=\"javascript:void(0)\" class=\"closebtn\" (click)=\"closeNav()\">\n          &times;\n        </a>\n        <div class=\"sideMenuItems\">\n          <img src=\"assets/logo.png\" alt=\"icon\" height=\"30px\" width=\"30px\">&nbsp;&nbsp;&nbsp;Expense App\n        </div>\n        <div>&nbsp;</div>\n        <div class=\"sideMenuItems\" (click)=\"menuClick('home')\">\n          Home\n        </div>\n        <div>&nbsp;</div>\n        <div class=\"sideMenuItems\" (click)=\"menuClick('profile')\">\n          Profile\n        </div>\n        <div>&nbsp;</div>\n        <div class=\"sideMenuItems\" (click)=\"menuClick('addExpense')\">\n          Add Expense\n        </div>\n        <div>&nbsp;</div>\n        <div class=\"sideMenuItems\" (click)=\"menuClick('editExpense')\">\n          Edit Expense\n        </div>\n        <div>&nbsp;</div>\n        <div class=\"sideMenuItems\" (click)=\"menuClick('deleteExpense')\">\n          Delete Expense\n        </div>\n        <div>&nbsp;</div>\n        <div class=\"sideMenuItems\" (click)=\"menuClick('logout')\">\n          Logout\n        </div>\n      </div>\n      <div id=\"main\">\n        <span style=\"font-size:20px;cursor:pointer\" (click)=\"openNav()\" class=\"{{preDefinedClassName}}\">\n          &#9776;\n        </span>\n      </div>\n    </div>\n    <div class=\"col-11 top2\">\n      Expense App\n    </div>\n  </div>\n</div>"
+module.exports = "<div class=\"container-fluid\">\n  <div class=\"row\">\n    <div class=\"col-1 top\">\n      <div id=\"mySidenav\" class=\"sidenav\" [ngStyle]=\"{'width.%':width}\">\n        <a href=\"javascript:void(0)\" class=\"closebtn\" (click)=\"closeNav()\">\n          &times;\n        </a>\n        <div class=\"sideMenuItems\">\n          <img src=\"assets/logo.png\" alt=\"icon\" height=\"30px\" width=\"30px\">&nbsp;&nbsp;&nbsp;Expense App\n        </div>\n        <div>&nbsp;</div>\n        <div class=\"sideMenuItems\" (click)=\"menuClick('home')\">\n          Home\n        </div>\n        <div>&nbsp;</div>\n        <div class=\"sideMenuItems\" (click)=\"menuClick('profile')\">\n          Profile\n        </div>\n        <div>&nbsp;</div>\n        <div class=\"sideMenuItems\" (click)=\"menuClick('expenseSheet')\">\n          Expense Sheet\n        </div>\n        <div>&nbsp;</div>\n        <div class=\"sideMenuItems\" (click)=\"menuClick('logout')\">\n          Logout\n        </div>\n      </div>\n      <div id=\"main\">\n        <span style=\"font-size:20px;cursor:pointer\" (click)=\"openNav()\" class=\"{{preDefinedClassName}}\">\n          &#9776;\n        </span>\n      </div>\n    </div>\n    <div class=\"col-11 top2\">\n      Expense App\n    </div>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -699,8 +502,7 @@ var HeaderComponent = /** @class */ (function () {
     function HeaderComponent(router) {
         this.router = router;
     }
-    HeaderComponent.prototype.ngOnInit = function () {
-    };
+    HeaderComponent.prototype.ngOnInit = function () { };
     HeaderComponent.prototype.openNav = function () {
         document.getElementById("mySidenav").style.width = "250px";
         document.getElementById("main").style.opacity = "1";
@@ -1044,49 +846,6 @@ var LogoutComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/models/expense.ts":
-/*!***********************************!*\
-  !*** ./src/app/models/expense.ts ***!
-  \***********************************/
-/*! exports provided: DailyExpense, MonthlyExpense, YearlyExpense */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DailyExpense", function() { return DailyExpense; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MonthlyExpense", function() { return MonthlyExpense; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "YearlyExpense", function() { return YearlyExpense; });
-var DailyExpense = /** @class */ (function () {
-    function DailyExpense() {
-        this.day = 1;
-        this.dayExpenses = [];
-        this.dayTotal = 0;
-    }
-    return DailyExpense;
-}());
-
-var MonthlyExpense = /** @class */ (function () {
-    function MonthlyExpense() {
-        this.month = 1;
-        this.monthlyExpense = [];
-        this.monthTotal = 0;
-    }
-    return MonthlyExpense;
-}());
-
-var YearlyExpense = /** @class */ (function () {
-    function YearlyExpense() {
-        this.year = 2010;
-        this.yearlyExpense = [];
-        this.yearTotal = 0;
-    }
-    return YearlyExpense;
-}());
-
-
-
-/***/ }),
-
 /***/ "./src/app/models/signin.ts":
 /*!**********************************!*\
   !*** ./src/app/models/signin.ts ***!
@@ -1176,67 +935,6 @@ var ProfileComponent = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_user_service__WEBPACK_IMPORTED_MODULE_4__["UserService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
     ], ProfileComponent);
     return ProfileComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/services/expenses.service.ts":
-/*!**********************************************!*\
-  !*** ./src/app/services/expenses.service.ts ***!
-  \**********************************************/
-/*! exports provided: ExpensesService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ExpensesService", function() { return ExpensesService; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/fire/firestore */ "./node_modules/@angular/fire/firestore/index.js");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
-/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/environments/environment */ "./src/environments/environment.ts");
-
-
-
-
-
-var ExpensesService = /** @class */ (function () {
-    function ExpensesService(firestore) {
-        this.firestore = firestore;
-        this.expenseSheetData = new rxjs__WEBPACK_IMPORTED_MODULE_3__["BehaviorSubject"](null);
-        this.expenseSheetDataObservable = this.expenseSheetData.asObservable();
-        this.expenseSheetRef = this.firestore.collection(src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].expenseSheet);
-    }
-    ExpensesService.prototype.postExpenseDetails = function (expenseSheetData) {
-        return this.expenseSheetRef.add(expenseSheetData);
-    };
-    ExpensesService.prototype.getExpenseDetails = function () {
-        return this.expenseSheetRef.get();
-    };
-    ExpensesService.prototype.putExpenseDetails = function (expenseSheetData) {
-        return null;
-    };
-    ExpensesService.prototype.deleteExpenseDetails = function (expenseSheetData) {
-        return null;
-    };
-    ExpensesService.prototype.setExpenseSheetData = function (expenseSheet) {
-        this.expenseSheetData.next(expenseSheet);
-    };
-    ExpensesService.prototype.getExpenseSheetData = function () {
-        return this.expenseSheetData.value;
-    };
-    ExpensesService.prototype.getExpenseSheetObservable = function () {
-        return this.expenseSheetDataObservable;
-    };
-    ExpensesService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-            providedIn: 'root'
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_2__["AngularFirestore"]])
-    ], ExpensesService);
-    return ExpensesService;
 }());
 
 
@@ -1384,7 +1082,7 @@ var SignupComponent = /** @class */ (function () {
     }
     SignupComponent.prototype.ngOnInit = function () { };
     SignupComponent.prototype.passwordConfirming = function (passwords) {
-        if (passwords.get("password").value === passwords.get("confirmPassword").value && (passwords.get("password").value !== "" && passwords.get("confirmPassword").value !== ""))
+        if (passwords.get("password").value !== "" && (passwords.get("password").value === passwords.get("confirmPassword").value))
             return null;
         return { mismatch: true };
     };
@@ -1502,7 +1200,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\talk2\Documents\Codes\Expense_App\Angular\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! C:\Users\talk2\Documents\Github and Bitbucket\Expense_App\Angular\src\main.ts */"./src/main.ts");
 
 
 /***/ })

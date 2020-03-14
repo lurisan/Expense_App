@@ -11,7 +11,7 @@ export class MonthlyExpense {
 }
 
 export class YearlyExpense {
-    year: number = 2010;
+    year: number = 2020;
     yearlyExpense: Array<MonthlyExpense> = [];
     yearTotal: number = 0;
 }

@@ -10,15 +10,17 @@ export class HeaderComponent implements OnInit {
 
   constructor(private router: Router) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
+
   openNav() {
     document.getElementById("mySidenav").style.width = "250px";
     document.getElementById("main").style.opacity = "1";
   }
+  
   closeNav() {
     document.getElementById("mySidenav").style.width = "0px";
   }
+  
   menuClick(item: string) {
     this.closeNav()
     this.router.navigateByUrl('/expense-app/' + item)

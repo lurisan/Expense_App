@@ -1,9 +1,9 @@
 [
     {
-        username: "Ritika",
+        username: "Ifat",
         expenses: [
             {
-                year: 2010,
+                year: 2020,
                 yearlyExpense: [
                     {
                         month: 1,
@@ -41,7 +41,7 @@
                 yearlyTotal: 8000
             },
             {
-                year: 2011,
+                year: 2020,
                 yearlyExpense: [
                     {
                         month: 1,

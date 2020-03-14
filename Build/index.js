@@ -1,44 +1,45 @@
-const path = require('path')
-const exec = require('child_process').exec
-const copy = require('copy-dir')
+const path = require('path');
+const exec = require('child_process').exec;
+const copy = require('copy-dir');
 
-console.log('Build Process Initiated...')
-const angularSource = path.join(__dirname, '../', 'Angular')
-const cordovaSource = path.join(__dirname, '../', 'Cordova')
-const firebaseSource = path.join(__dirname, '../', 'Firebase', 'public')
-const apkSource = path.join(cordovaSource, 'platforms', 'android', 'app', 'build', 'outputs', 'apk', 'debug')
+console.log('Build Process Initiated...');
+const dirname = path.join(__dirname, '../');
+const angularSource = path.join(dirname, 'Angular');
+const cordovaSource = path.join(dirname, 'Cordova');
+const firebaseSource = path.join(dirname, 'Firebase', 'public');
+const apkSource = path.join(cordovaSource, 'platforms', 'android', 'app', 'build', 'outputs', 'apk', 'debug');
 
-const angularBuildCommand = 'cd ' + angularSource + ' && ng build'
-const cordovaBuildCommand = 'cd ' + cordovaSource + ' && cordova build'
-const firebaseBuildCommand = 'cd ' + path.join(firebaseSource, '../') + ' && firebase deploy'
-const gitPushCommand = 'cd ' + path.join(__dirname,'../') + ' && git add -A && git commit -m "expense app" && git push'
+const angularBuildCommand = 'cd ' + angularSource + ' && ng build';
+const cordovaBuildCommand = 'cd ' + cordovaSource + ' && cordova build';
+const firebaseBuildCommand = 'cd ' + path.join(firebaseSource, '../') + ' && firebase deploy';
+const gitPushCommand = 'cd ' + dirname + ' && git commit -a -m "expense app" && git push';
 
-const appDestination = path.join(__dirname, '../', 'App')
+const appDestination = path.join(dirname, 'App');
 
-exec(angularBuildCommand, function (err, out, code) {
+exec(angularBuildCommand, err => {
     if (!err) {
-        console.log('Angular Build Complete')
-        copy.sync(path.join(angularSource, 'dist'), path.join(cordovaSource))
-        copy.sync(path.join(angularSource, 'dist', 'www'), path.join(firebaseSource))
-        exec(cordovaBuildCommand, function (err, out, code) {
+        console.log('Angular Build Complete');
+        copy.sync(path.join(angularSource, 'dist'), path.join(cordovaSource));
+        copy.sync(path.join(angularSource, 'dist', 'www'), path.join(firebaseSource));
+        exec(cordovaBuildCommand, err => {
             if (!err) {
-                console.log('Cordova Build Complete')
-                exec(firebaseBuildCommand, function (err, out, code) {
+                console.log('Cordova Build Complete');
+                exec(firebaseBuildCommand, err => {
                     if (!err) {
-                        console.log('Firebase Deploy Complete')
-                        copy.sync(apkSource, appDestination)
-                        exec(gitPushCommand, function (err, out, code) {
-                            if (!err) {
-                                console.log("Git Push Successfull")
-                            } else
-                                console.log('Git Push Error: ', err)
-                        })
+                        console.log('Firebase Deploy Complete');
+                        copy.sync(apkSource, appDestination);
+                        exec(gitPushCommand, err => {
+                            if (!err)
+                                console.log("Git Push Successfull");
+                            else
+                                console.log('Git Push Error: ', err);
+                        });
                     } else
-                        console.log('Firebase Deploy Error: ', err)
-                })
+                        console.log('Firebase Deploy Error: ', err);
+                });
             } else
-                console.log('Cordova Build Error: ', err)
+                console.log('Cordova Build Error: ', err);
         });
     } else
-        console.log('Angular Build Error: ', err)
-})
+        console.log('Angular Build Error: ', err);
+});
