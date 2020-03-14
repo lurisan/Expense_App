@@ -1,0 +1,58 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-10">
+      <table class="table">
+        <tr>
+          <th>
+            Day
+          </th>
+          <th [attr.colspan]="thnum" *ngIf="editMode">
+            Expenses
+          </th>
+          <th>
+            Add Expense
+          </th>
+          <th>
+            Total
+          </th>
+          <th>
+            Action
+          </th>
+        </tr>
+        <tr>
+          <td>
+            01/03/2020
+          </td>
+          <ng-container *ngIf=" editMode">
+            <ng-container *ngFor="let data of dailyExp; let i=index; trackBy:trackActiveBox">
+              <td class="table-hover" (click)="enableEdit(i)">
+                <input *ngIf="!edit[i]" type="number" name="exp{{i}}" id="exp{{i}}" value="{{data}}"
+                  (blur)="updateSum()" [(ngModel)]="dailyExp[i]">
+                <div [hidden]="!edit[i]">{{data | currency:'INR'}}</div>
+              </td>
+            </ng-container>
+          </ng-container>
+
+          <ng-container *ngIf="!editMode">
+            <td class="table-hover" *ngIf="add">
+              <input type="number" name="non-edit-add" id="non-edit-add" value="0" (blur)="updateSum()"
+                [(ngModel)]="singleValAdd">
+            </td>
+          </ng-container>
+          <td (click)="addCell()" *ngIf="(!add && !editMode) || editMode">
+            <button class=btn-success>Add</button>
+          </td>
+          <td>
+            {{total | currency:'INR'}}
+          </td>
+          <td (click)="enableEditMode(true)" *ngIf="!editMode">
+            <button class=btn-success>Edit</button>
+          </td>
+          <td (click)="enableEditMode(false)" *ngIf="editMode">
+            <button class=btn-success>Save</button>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
