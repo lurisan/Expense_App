@@ -800,7 +800,7 @@ module.exports = ".background {\r\n  display: block;\r\n  width: 100%;\r\n  heig
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"background\">\n  <div class=\"modal-dialog\" style=\"margin-top:30% \" [@simpleFadeAnimation]=\"'in'\">\n    <div class=\"modal-content\">\n      <div class=\"modal-body\" id=\"modal-body\">\n        <label style=\"margin:9%;\">Are You Sure You Want To Logout?</label><br>\n        <button type=\"button\" class=\"btn btn-danger\" style=\"width:40%;margin:5%\"\n          (click)=\"btnClicked('yes')\">Yes</button>\n        <button type=\"button\" class=\"btn btn-success\" style=\"width:40%;margin:5%\" (click)=\"btnClicked('no')\">No</button>\n      </div>\n    </div>\n  </div>\n</div>"
+module.exports = "<div class=\"background\">\r\n  <div class=\"modal-dialog\" style=\"margin-top:30% \" [@simpleFadeAnimation]=\"'in'\">\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-body\" id=\"modal-body\">\r\n        <label style=\"margin:9%;\">Are You Sure You Want To Logout?</label><br>\r\n        <button type=\"button\" class=\"btn btn-danger\" style=\"width:40%;margin:5%\"\r\n          (click)=\"btnClicked('yes')\">Yes</button>\r\n        <button type=\"button\" class=\"btn btn-success\" style=\"width:40%;margin:5%\" (click)=\"btnClicked('no')\">No</button>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -901,7 +901,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"login-box\" [@simpleFadeAnimation]=\"'in'\">\n    <p>\n        profile Works!\n    </p>\n</div>"
+module.exports = "<div class=\"login-box\" [@simpleFadeAnimation]=\"'in'\">\r\n    <p>\r\n        profile Works!\r\n    </p>\r\n</div>"
 
 /***/ }),
 
